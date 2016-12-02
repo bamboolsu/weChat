@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-11-29 15:58:21 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.le.entity.NumberOfSubscriptions" table="wx_event" catalog="wechat">
+        <id name="openID" type="string">
+            <column name="openID" length="50" />
+            <generator class="assigned" >
+                
+            </generator>
+        </id>
+        <property name="msgType" type="string">
+            <column name="MsgType" length="20" not-null="true" />
+        </property>
+        <property name="event" type="string">
+            <column name="Event" length="20" not-null="true" />
+        </property>
+        <property name="eventKey" type="string">
+            <column name="EventKey" length="20" />
+        </property>
+        <property name="ticket" type="string">
+            <column name="Ticket" length="200" not-null="false" />
+        </property>
+        <property name="createTime" type="string">
+            <column name="CreateTime" length="30" not-null="true" />
+        </property>
+        <property name="state" type="integer">
+             <column name="state" length="2" not-null="true"></column>
+        </property>
+        
+    </class>
+</hibernate-mapping>
