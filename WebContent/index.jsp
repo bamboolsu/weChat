@@ -18,6 +18,16 @@ function sendPost(){
 	 })
 }
 
+for(var i=0;i<$("tr").length;i++){
+	var c=i%2;
+	if(c==0){
+		$("tr").eq(i).css({"backgroundColor":"#ddd"})
+	}else{
+		$("tr").eq(i).css({"backgroundColor":"#fff"})
+		}
+}
+
+
 function getCount(){
 	var url="http://localhost:8080/WeChat/res/gec";
 	var day=$('#day option:selected').val();
