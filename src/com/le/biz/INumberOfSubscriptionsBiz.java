@@ -10,4 +10,6 @@ public interface INumberOfSubscriptionsBiz {
    public void add(NumberOfSubscriptions nos);
    
    public void delete(String openId);
+   
+   public int getWxEventCount(String date);
 }

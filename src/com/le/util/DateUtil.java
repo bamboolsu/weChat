@@ -1,5 +1,8 @@
 package com.le.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class DateUtil {
 	/** 
 	    * 时间unix转换 
@@ -11,4 +14,17 @@ public class DateUtil {
 	       String date = new java.text.SimpleDateFormat(format).format(new java.util.Date(timestamp));  
 	       return date;  
 	   }  
+	   
+	   /**
+	    * 多少天前
+	    * @param day 天
+	    * @return
+	    */
+	   public static String SomeTime(int day){
+		   Calendar calendar = Calendar.getInstance();
+	        calendar.add(Calendar.DATE, day);
+	        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	        String format = sdf.format(calendar.getTime());
+	        return format;
+	   }
 }

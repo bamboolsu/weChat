@@ -2,13 +2,15 @@ package com.le.bizimpl;
 
 
 
+import org.springframework.stereotype.Repository;
+
 import com.le.biz.INumberOfSubscriptionsBiz;
 import com.le.dao.INumberOfSubscriptionsDao;
 import com.le.entity.NumberOfSubscriptions;
 import com.le.entity.WxUser;
 import com.le.util.WXUserUtil;
 
-
+@Repository
 public class NumberOfSubscriptionsBizImpl implements INumberOfSubscriptionsBiz{
 
 	
@@ -53,6 +55,12 @@ public class NumberOfSubscriptionsBizImpl implements INumberOfSubscriptionsBiz{
 			// TODO: handle exception
 			throw e;
 		}
+	}
+
+	public int getWxEventCount(String date) {
+		// TODO Auto-generated method stub
+		int count = inos.getWxEventCount(date);
+		return count;
 	}
 
 }

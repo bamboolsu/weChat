@@ -7,7 +7,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
   <!-- 注解扫描包 -->
-  <context:component-scan base-package="com.le.controller"/>
+  <context:component-scan base-package="com.le.*"/>
   
   <!-- 开启注解 -->
   <mvc:annotation-driven/>

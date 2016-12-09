@@ -3,6 +3,9 @@ package com.le.controller;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.le.biz.INumberOfSubscriptionsBiz;
 import com.le.bizimpl.NumberOfSubscriptionsBizImpl;
 import com.le.entity.NumberOfSubscriptions;
@@ -15,7 +18,9 @@ import com.le.util.MessageUtil;
  * @author admin
  *
  */
+@Repository
 public class EventDispatcher implements IEventDispatcher{
+	@Autowired
 	private  INumberOfSubscriptionsBiz nosb;
 	public  String processEvent(Map<String, String> map)  {
         if (map.get("Event").equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) { //¹Ø×¢ÊÂ¼þ

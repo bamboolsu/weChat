@@ -3,6 +3,8 @@ package com.le.controller;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.stereotype.Repository;
+
 import com.le.icontroller.IMessageDispatcher;
 import com.le.util.MessageUtil;
 
@@ -11,6 +13,7 @@ import com.le.util.MessageUtil;
  * @author admin
  *
  */
+@Repository
 public class MsgDispatcher implements IMessageDispatcher{
 	public  String processMessage(Map<String, String> map) {
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // 文本消息

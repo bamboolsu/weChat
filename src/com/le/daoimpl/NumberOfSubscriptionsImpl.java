@@ -3,14 +3,15 @@ package com.le.daoimpl;
 import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import com.le.dao.INumberOfSubscriptionsDao;
 import com.le.entity.NumberOfSubscriptions;
 import com.le.entity.WxUser;
 
 
-
-public class NumberOfSubscriptionsImpl extends HibernateDaoSupport implements INumberOfSubscriptionsDao{
+@Repository
+public class NumberOfSubscriptionsImpl extends BaseDao implements INumberOfSubscriptionsDao{
 
 	public void save(com.le.entity.NumberOfSubscriptions nos,WxUser wx) {
 		// TODO Auto-generated method stub
@@ -52,6 +53,14 @@ public class NumberOfSubscriptionsImpl extends HibernateDaoSupport implements IN
 			// TODO: handle exception
 			throw e;
 		}
+	}
+
+	public int getWxEventCount(String date) {
+		// TODO Auto-generated method stub
+		List find = this.getHibernateTemplate().find("SELECT count(we.openID) from NumberOfSubscriptions we where we.createTime>=?", date);
+		String str = find.get(0).toString();
+		System.out.println(str);
+		return Integer.parseInt(str);
 	}
 
 }

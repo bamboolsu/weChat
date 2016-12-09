@@ -11,4 +11,6 @@ public interface INumberOfSubscriptionsDao {
    public void delete(String openId);
    
    public void update(NumberOfSubscriptions nos);
+   
+   public int getWxEventCount(String date);
 }
