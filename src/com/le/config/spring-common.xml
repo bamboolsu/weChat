@@ -42,6 +42,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
           <tx:attributes>
               <tx:method name="ad*" propagation="REQUIRED"/>
               <tx:method name="del*" propagation="REQUIRED"/>
+               <tx:method name="set*" propagation="REQUIRED"/>
                 <tx:method name="modify*" propagation="REQUIRED"/>
                 <tx:method name="*" propagation="REQUIRED" read-only="true"/>
           </tx:attributes>

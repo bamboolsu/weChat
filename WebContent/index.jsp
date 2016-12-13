@@ -74,8 +74,8 @@ function getCount(){
                         <c:if test="${item.state==0 }">禁用</c:if>
                         <c:if test="${item.state==1 }">可用</c:if>
                      </td>
-                     <td> <a href="">生成二维码</a> </td>
-                      <td> <a href="">修改</a> </td>
+                     <td> <a href="${item.imageUrl }">生成二维码</a> </td>
+                      <td> <a href="${item.id }">修改</a> </td>
                </tr>  
                </c:forEach>
           </table>
