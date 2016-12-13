@@ -18,14 +18,7 @@ function sendPost(){
 	 })
 }
 
-for(var i=0;i<$("tr").length;i++){
-	var c=i%2;
-	if(c==0){
-		$("tr").eq(i).css({"backgroundColor":"#ddd"})
-	}else{
-		$("tr").eq(i).css({"backgroundColor":"#fff"})
-		}
-}
+
 
 
 function getCount(){
@@ -47,11 +40,6 @@ function getCount(){
    <jsp:forward page="/st/init"></jsp:forward>
 </c:if>
 <body>
-      欢迎，这是微信测试的首页
-      <a href="wechat/security">点我测试</a>
-      
-      <input type="button" value="测试" onclick="sendPost()"/>
-     
           <select id="day" onchange="getCount()">
             <option value="-1">请选择</option>
              <option value="0">今天</option>
@@ -60,27 +48,47 @@ function getCount(){
              <option value="-30">一个月</option>
           </select>
           
-          <table>
-               <tr>
+          <h3 align="center"><a href="http://localhost:8080/WeChat/st/toadd">添加</a></h3>
+          <table border="1px" align="center">
+               <tr align="center">
                     <td>id</td>
-                    <td>姓名</td>
+                    <td>名称</td>
                     <td>二维码参数</td>
+                    <td>联系人</td>
+                    <td>联系人电话</td>
                     <td>类型</td>
                     <td>状态</td>
+                    <td>生成二维码</td>
+                    <td>修改</td>
                </tr>
                
                <c:forEach items="${wps }" var="item" >
-                      <tr>${item.id }</tr>
-                      <tr>${item.name }</tr>
-                       <tr>${item.eventKey }</tr>
-                       <tr>${item.Le.type }</tr>
-                       <tr>
+               <tr align="center">
+                    <td>${item.id }</td>
+                      <td>${item.name }</td>
+                       <td>${item.eventKey }</td>
+                         <td>${item.contacts }</td>
+                           <td>${item.mobile }</td>
+                       <td>${item.leType.type }</td>
+                       <td>
                         <c:if test="${item.state==0 }">禁用</c:if>
                         <c:if test="${item.state==1 }">可用</c:if>
-                       </tr>
-                      
+                     </td>
+                     <td> <a href="">生成二维码</a> </td>
+                      <td> <a href="">修改</a> </td>
+               </tr>  
                </c:forEach>
           </table>
      
 </body>
+<script type="text/javascript">
+for(var i=0;i<$("tr").length;i++){
+	var c=i%2;
+	if(c==0){
+		$("tr").eq(i).css({"backgroundColor":"#ddd"})
+	}else{
+		$("tr").eq(i).css({"backgroundColor":"#fff"})
+		}
+}
+</script>
 </html>

@@ -1,11 +1,16 @@
 package com.le.util;
 
-import java.io.InputStream;
+
+import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+
+
+import org.apache.http.client.ClientProtocolException;
 
 import com.le.entity.WxUser;
+
 
 import net.sf.json.JSONObject;
 
@@ -32,5 +37,38 @@ public class WXUserUtil {
 			e.printStackTrace();
 		}
     	return null;
+    }
+    
+    /**
+     * Éú³ÉÓÀ¾Ã¶þÎ¬Âë
+     * @param action_name
+     * @param scene_str
+     * @return
+     */
+    public static String getTwoDimensioncode(String action_name,String scene_str){
+    	JSONObject jsonobj=new JSONObject();
+    	jsonobj.put("action_name", action_name);
+    	JSONObject node=new JSONObject();
+    	node.put("scene_str", scene_str);
+    	jsonobj.put("action_info", node);
+    	    String url=GlobalConstants.getInterfaceUrl("createQrCode")+"?access_token="+ GlobalConstants.interfaceUrlProperties.get("access_token");
+			String sendPostBuffer=null;
+			String imageurl=null;
+			try {
+				sendPostBuffer = HttpUtils.sendPostBuffer(url, jsonobj.toString());
+				System.out.println(sendPostBuffer);
+				JSONObject fromObject = JSONObject.fromObject(sendPostBuffer);
+				imageurl=GlobalConstants.getInterfaceUrl("image")+"?ticket="+fromObject.get("ticket").toString();
+				return imageurl;
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return imageurl;
+
     }
 }
