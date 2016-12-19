@@ -1,10 +1,10 @@
 package com.le.util;
 
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -45,13 +45,19 @@ public class WXUserUtil {
     public static String getImageUrl(Integer eventKey){
     	String url=(String) GlobalConstants.interfaceUrlProperties.get("createImageUrl")+"?access_token="+GlobalConstants.interfaceUrlProperties.get("access_token");
     	JSONObject jsonObj=new JSONObject();
+    	JSONObject actionInfo=new JSONObject();
+    	JSONObject scene=new JSONObject();
+    	scene.put("scene_id", eventKey);
+    	actionInfo.put("scene", scene);
     	jsonObj.put("action_name", "QR_LIMIT_SCENE");
-    	jsonObj.put("action_info", eventKey);
+    	jsonObj.put("action_info", actionInfo);
+    	System.out.println(jsonObj);
     	String imageUrl=null;
     			try {
 					String sendPostBuffer = HttpUtils.sendPostBuffer(url, jsonObj.toString());
 					JSONObject str=JSONObject.fromObject(sendPostBuffer);
-					imageUrl=(java.lang.String) GlobalConstants.interfaceUrlProperties.get("getImageUrl")+"?ticket=?"+str.getString("ticket");
+					System.out.println(str);
+					imageUrl=(java.lang.String) GlobalConstants.interfaceUrlProperties.get("getImageUrl")+"?ticket="+str.getString("ticket");
 					System.out.println(imageUrl);
 				} catch (ClientProtocolException e) {
 					// TODO Auto-generated catch block

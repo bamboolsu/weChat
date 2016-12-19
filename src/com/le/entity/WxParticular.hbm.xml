@@ -34,7 +34,7 @@
         <property name="mobile" type="string">
             <column name="mobile" length="20" />
         </property>
-        <many-to-one name="leType" lazy="proxy" unique="true">
+        <many-to-one name="leType" lazy="proxy" unique="true" insert="false">
             <column name="letype_id"></column>
         </many-to-one>
         <!-- <one-to-one name="nos" class="com.le.entity.NumberOfSubscriptions">

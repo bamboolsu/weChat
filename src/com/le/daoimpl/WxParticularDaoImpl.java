@@ -25,6 +25,7 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 		// TODO Auto-generated method stub
 		try {
 			 this.getHibernateTemplate().save(wxPar);
+			 System.out.println("wxPar     "+wxPar);
 			 return wxPar.getId();//新增成功，返回Id
 		} catch (RuntimeException e) {
 			// TODO: handle exception
@@ -98,6 +99,8 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 		// TODO Auto-generated method stub
 		Session session = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
 		WxParticular wxParticular =(WxParticular) session.get(WxParticular.class,id);
+		System.out.println(wxParticular);
+		System.out.println(id);
 		wxParticular.setImageUrl(imageUrl);//修改imageUrl
 		Transaction transaction = session.beginTransaction();
 		transaction.begin();

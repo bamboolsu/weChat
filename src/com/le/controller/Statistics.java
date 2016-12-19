@@ -63,6 +63,7 @@ public class Statistics {
 		initWxParticularJson.put("wpList", jsonArr.toString());
 		initWxParticularJson.put("sumPage", sumPage);
 		initWxParticularJson.put("result", 1);
+		System.out.println(initWxParticularJson);
 		PrintWriter out=null;
 		try {
 			out = resp.getWriter();
@@ -80,6 +81,42 @@ public class Statistics {
 		}
 		
 	}
+	
+	
+	
+	/**
+	 * 下拉选择时间异步处理请求
+	 * @param resp
+	 * @param eventKey
+	 * @param date
+	 */
+	@RequestMapping("/findJosn")
+	public void  findByEventKey(HttpServletResponse resp,Integer eventKey,Integer date,String callback){
+		if(date==null){
+			date=0;
+		}
+		Long count = iwp.getCount(eventKey, date, 1);
+		JSONObject jsonObj=new JSONObject();
+		jsonObj.put("count" , count);
+		jsonObj.put("date", DateUtil.SomeTime(date));
+		PrintWriter out=null;
+		try {
+			out = resp.getWriter();
+			if(callback==null){
+				out.write(jsonObj.toString());
+			}else{
+				out.write(callback+"("+jsonObj.toString()+")");
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			out.close();
+		}
+		
+	}
+	
 	
 	@RequestMapping("initJsp")
 	/**
@@ -158,8 +195,9 @@ public class Statistics {
 	}
 	
 	@RequestMapping("/add")
-	public void addWxParticular(HttpServletResponse resp,WxParticular wp){
+	public void addWxParticular(HttpServletResponse resp,WxParticular wp,String callback){
 		//验证对象数据的完整性，合法性
+		System.out.println("WP       "+wp);
 		int id = iwp.add(wp);
 		String imageUrl=WXUserUtil.getImageUrl(wp.getEventKey());//二维码图片url地址
 		boolean setImageUrlResult = iwp.setImageUrl(imageUrl, id);
@@ -170,10 +208,16 @@ public class Statistics {
 		}else{
 			resultJson.put("result", 40001);//二维码图片获取失败
 		}
-		
+		System.out.println(resultJson.toString());
 		try {
 			out = resp.getWriter();
-		    out.write(resultJson.toString());
+			if(callback==null){
+				out.write(resultJson.toString());
+			}else{
+				out.write(callback+"("+resultJson.toString()+")");
+				
+			}
+		   
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -223,36 +267,5 @@ public class Statistics {
 		return "Query";
 	}
 	
-	/**
-	 * 下拉选择时间异步处理请求
-	 * @param resp
-	 * @param eventKey
-	 * @param date
-	 */
-	@RequestMapping("/findJosn")
-	public void  findByEventKey(HttpServletResponse resp,Integer eventKey,Integer date,String callback){
-		if(date==null){
-			date=0;
-		}
-		Long count = iwp.getCount(eventKey, date, 1);
-		JSONObject jsonObj=new JSONObject();
-		jsonObj.put("count" , count);
-		jsonObj.put("date", DateUtil.SomeTime(date));
-		PrintWriter out=null;
-		try {
-			out = resp.getWriter();
-			if(callback==null){
-				out.write(jsonObj.toString());
-			}else{
-				out.write(callback+"("+jsonObj.toString()+")");
-			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			out.close();
-		}
-		
-	}
+	
 }

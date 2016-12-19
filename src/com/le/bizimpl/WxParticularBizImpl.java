@@ -41,7 +41,8 @@ public class WxParticularBizImpl implements IWxParticularBiz{
 
 	public int add(WxParticular wp) {
 		// TODO Auto-generated method stub
-		return 0;
+		int add = iwp.add(wp);
+		return add;
 	}
 
 	public List<WxParticular> init() {
