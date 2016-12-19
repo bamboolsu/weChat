@@ -6,9 +6,7 @@
     <class name="com.le.entity.NumberOfSubscriptions" table="wx_event" catalog="wechat">
         <id name="openID" type="string">
             <column name="openID" length="50" />
-            <generator class="assigned" >
-                
-            </generator>
+            <generator class="assigned" />
         </id>
         <property name="msgType" type="string">
             <column name="MsgType" length="20" not-null="true" />
@@ -16,7 +14,7 @@
         <property name="event" type="string">
             <column name="Event" length="20" not-null="true" />
         </property>
-        <property name="eventKey" type="string">
+        <property name="eventKey" type="integer">
             <column name="EventKey" length="20" />
         </property>
         <property name="ticket" type="string">
@@ -28,6 +26,11 @@
         <property name="state" type="integer">
              <column name="state" length="2" not-null="true"></column>
         </property>
+        
+       <!--    <one-to-one name="wp" class="com.le.entity.WxParticular" constrained="false"></one-to-one>-->
+        
+        <one-to-one name="wxuser" class="com.le.entity.WxUser" constrained="true"></one-to-one>
+        
         
     </class>
 </hibernate-mapping>

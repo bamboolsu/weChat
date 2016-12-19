@@ -2,6 +2,8 @@ package com.le.daoimpl;
 
 import java.util.List;
 
+import org.hibernate.Transaction;
+import org.hibernate.classic.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -15,12 +17,19 @@ public class NumberOfSubscriptionsImpl extends BaseDao implements INumberOfSubsc
 
 	public void save(com.le.entity.NumberOfSubscriptions nos,WxUser wx) {
 		// TODO Auto-generated method stub
-		
+		nos.setWxuser(wx);
+		System.out.println(wx);
+		Session currentSession = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
+		Transaction beginTransaction = currentSession.beginTransaction();
+		beginTransaction.begin();
 		try {
-			this.getHibernateTemplate().save(nos);
-			this.getHibernateTemplate().save(wx);
+		
+			currentSession.save(nos);
+			currentSession.save(wx);
+			beginTransaction.commit();
 		} catch (RuntimeException e) {
 			// TODO: handle exception
+			beginTransaction.rollback();
 			throw e;
 		}
 		

@@ -12,6 +12,14 @@ import net.sf.json.JSONObject;
  */
 public class WxUser implements java.io.Serializable {
 
+	@Override
+	public String toString() {
+		return "WxUser [openId=" + openId + ", nickname=" + nickname + ", sex=" + sex + ", city=" + city + ", country="
+				+ country + ", province=" + province + ", language=" + language + ", headimgurl=" + headimgurl
+				+ ", subscribeTime=" + subscribeTime + ", mobile=" + mobile + ", loginTime=" + loginTime
+				+ ", lastLoginMobile=" + lastLoginMobile + ", lastLoginTime=" + lastLoginTime + ", nos=" + nos + "]";
+	}
+
 	private String openId;
 	private String nickname;
 	private Integer sex;

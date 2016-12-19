@@ -2,6 +2,7 @@ package com.le.bizimpl;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.le.biz.INumberOfSubscriptionsBiz;
@@ -22,6 +23,7 @@ public class NumberOfSubscriptionsBizImpl implements INumberOfSubscriptionsBiz{
 		this.inos = inos;
 	}
 
+	@Autowired
 	private INumberOfSubscriptionsDao inos;
 	
 
@@ -50,6 +52,7 @@ public class NumberOfSubscriptionsBizImpl implements INumberOfSubscriptionsBiz{
 			nos.setState(1);
 			
 			 WxUser weChatUser = WXUserUtil.getWeChatUser(nos.getOpenID());
+			 
 			 inos.save(nos,weChatUser);
 		} catch (RuntimeException e) {
 			// TODO: handle exception

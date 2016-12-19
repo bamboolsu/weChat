@@ -15,9 +15,12 @@ private String openID;
    
    private String Event;//事件类型
    
-   private String EventKey;//事件KEY值，qrscene_为前缀，后面为二维码的参数值
+   private Integer EventKey;//事件KEY值，qrscene_为前缀，后面为二维码的参数值
    
-   public String getOpenID() {
+   
+  
+
+public String getOpenID() {
 	return openID;
 }
 
@@ -41,11 +44,13 @@ public void setEvent(String event) {
 	Event = event;
 }
 
-public String getEventKey() {
+
+
+public Integer getEventKey() {
 	return EventKey;
 }
 
-public void setEventKey(String eventKey) {
+public void setEventKey(Integer eventKey) {
 	EventKey = eventKey;
 }
 
@@ -73,7 +78,9 @@ public NumberOfSubscriptions(String openID){
 
 public NumberOfSubscriptions(Map<String, String> map){
 	this.CreateTime=map.get("CreateTime");
-	this.EventKey=map.get("EventKey");
+	Integer eventKey=Integer.parseInt(map.get("EventKey").toString().substring(8));
+	System.out.println("eventKey"+eventKey);
+	this.EventKey=eventKey;
 	this.Event=map.get("Event");
 	this.openID=map.get("FromUserName");
 	this.MsgType=map.get("MsgType");
@@ -86,6 +93,15 @@ private String Ticket;//二维码的ticket，可用来换取二维码图片
    
    private int state;//状态
 
+   private WxUser wxuser;
+public WxUser getWxuser() {
+	return wxuser;
+}
+
+public void setWxuser(WxUser wxuser) {
+	this.wxuser = wxuser;
+}
+
 public int getState() {
 	return state;
 }
@@ -94,14 +110,8 @@ public void setState(int state) {
 	this.state = state;
 }
 
-//WxUser
-private WxUser wxUser;
 
-public WxUser getWxUser() {
-	return wxUser;
-}
 
-public void setWxUser(WxUser wxUser) {
-	this.wxUser = wxUser;
-}
+
+
 }

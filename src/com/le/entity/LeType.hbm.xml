@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-12-15 20:02:46 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.le.entity.LeType" table="le_type" catalog="wechat">
+        <id name="letypeId" type="java.lang.Integer">
+            <column name="letype_id" />
+            <generator class="identity" />
+        </id>
+        <property name="type" type="string">
+            <column name="type" length="20" not-null="true" />
+        </property>
+        <property name="startScope" type="int">
+            <column name="startScope" not-null="true" />
+        </property>
+        <property name="endScope" type="int">
+            <column name="endScope" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-12-15 20:02:46 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.le.entity.WxParticular" table="wx_particular" catalog="wechat">
+        <id name="id" type="integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="20" not-null="true" />
+        </property>
+        <property name="eventKey" type="int">
+            <column name="EventKey" not-null="true" />
+        </property>
+        <property name="oldEventKey" type="java.lang.Integer">
+            <column name="oldEventKey" />
+        </property>
+        <property name="imageUrl" type="string">
+            <column name="imageUrl" length="500" />
+        </property>
+        <property name="leTypeId" type="int">
+            <column name="leType_id" not-null="true">
+                <comment>&#182;&#254;&#206;&#172;&#194;&#235;&#181;&#196;&#192;&#224;&#208;&#205;</comment>
+            </column>
+        </property>
+        <property name="state" type="int">
+            <column name="state" not-null="true" />
+        </property>
+        <property name="contacts" type="string">
+            <column name="contacts" length="20" />
+        </property>
+        <property name="mobile" type="string">
+            <column name="mobile" length="20" />
+        </property>
+        <many-to-one name="leType" lazy="proxy" unique="true">
+            <column name="letype_id"></column>
+        </many-to-one>
+        <!-- <one-to-one name="nos" class="com.le.entity.NumberOfSubscriptions">
+        </one-to-one> -->
+    </class>
+</hibernate-mapping>

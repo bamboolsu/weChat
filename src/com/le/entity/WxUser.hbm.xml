@@ -45,6 +45,6 @@
             <column name="last_login_time" length="30" />
         </property>
         
-        
+        <one-to-one name="nos" constrained="false"></one-to-one>
     </class>
 </hibernate-mapping>

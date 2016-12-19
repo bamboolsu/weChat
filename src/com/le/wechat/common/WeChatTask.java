@@ -19,6 +19,7 @@ public class WeChatTask {
         params.put("secret", GlobalConstants.getInterfaceUrl("appsecret"));
         String jstoken = HttpUtils.sendGet(GlobalConstants.getInterfaceUrl("tokenUrl"), params);
         String access_token = JSONObject.fromObject(jstoken).getString("access_token"); // 获取到 token 并赋值保存
+        System.out.println(access_token);
         GlobalConstants.interfaceUrlProperties.put("access_token", access_token);
         
     }

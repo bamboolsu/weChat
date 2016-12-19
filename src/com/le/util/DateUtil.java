@@ -23,7 +23,7 @@ public class DateUtil {
 	   public static String SomeTime(int day){
 		   Calendar calendar = Calendar.getInstance();
 	        calendar.add(Calendar.DATE, day);
-	        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 	        String format = sdf.format(calendar.getTime());
 	        return format;
 	   }
