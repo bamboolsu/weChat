@@ -226,7 +226,8 @@ public class Statistics {
 	 * @param id
 	 */
 	@RequestMapping("/del")
-	public void deleteWxParticularById(HttpServletResponse resp,Integer id){
+	public void deleteWxParticularById(HttpServletResponse resp,Integer id,String callback){
+		System.out.println("id"+id);
 		boolean result = iwp.deleteWxParticularById(id);
 		resp.setContentType("text/json");
 		PrintWriter out=null;
@@ -234,7 +235,9 @@ public class Statistics {
 		resultJson.put("result", result);
 		try {
 			out = resp.getWriter();
-		    out.write(resultJson.toString());
+			String crossDomain = WXUserUtil.crossDomain(callback, resultJson);
+			System.out.println(crossDomain);
+		    out.write(crossDomain);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

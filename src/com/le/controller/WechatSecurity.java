@@ -44,6 +44,15 @@ public class WechatSecurity {
 		this.ed = ed;
 	}
 
+	/**
+	 * 验证微信服务器
+	 * @param request
+	 * @param response
+	 * @param signature
+	 * @param timestamp
+	 * @param nonce
+	 * @param echostr
+	 */
 	@RequestMapping(value="security",method=RequestMethod.GET)
 	public void securityCheck(
 			HttpServletRequest request,
