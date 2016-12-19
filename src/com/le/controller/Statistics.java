@@ -68,11 +68,8 @@ public class Statistics {
 		try {
 			out = resp.getWriter();
 			//解决跨域的问题
-			if(callback==null){
-				out.write(initWxParticularJson.toString());
-			}else{
-				out.write(callback+"("+initWxParticularJson.toString()+")");
-			}
+			String crossDomain = WXUserUtil.crossDomain(callback, initWxParticularJson);
+			out.write(crossDomain);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,12 +99,9 @@ public class Statistics {
 		PrintWriter out=null;
 		try {
 			out = resp.getWriter();
-			if(callback==null){
-				out.write(jsonObj.toString());
-			}else{
-				out.write(callback+"("+jsonObj.toString()+")");
-			}
-			
+			//解决跨域的问题
+			String crossDomain = WXUserUtil.crossDomain(callback, jsonObj);
+			out.write(crossDomain);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -152,7 +146,7 @@ public class Statistics {
 	 * @param id
 	 */
 	@RequestMapping("findWxParticularById")
-	public void findWxParticularById(HttpServletResponse resp,Integer id){
+	public void findWxParticularById(HttpServletResponse resp,Integer id,String callback){
 		WxParticular wxParticular = iwp.findWxParticularById(id);
 		JSONObject jsonObj=new JSONObject();
 		if(wxParticular==null){
@@ -167,7 +161,9 @@ public class Statistics {
 		PrintWriter out =null;
 		try {
 			out = resp.getWriter();
-			out.write(jsonObj.toString());
+			//解决跨域的问题
+			String crossDomain = WXUserUtil.crossDomain(callback, jsonObj);
+			out.write(crossDomain);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -177,7 +173,7 @@ public class Statistics {
 	}
 	
 	@RequestMapping("/getLeType")
-	public void getAllLeType(HttpServletResponse resp){
+	public void getAllLeType(HttpServletResponse resp,String callback){
 		List<LeType> leTypes = iwp.getAll();
 		JSONObject jsonObj=new JSONObject();
 		jsonObj.put("leType", leTypes);
@@ -197,8 +193,8 @@ public class Statistics {
 	@RequestMapping("/add")
 	public void addWxParticular(HttpServletResponse resp,WxParticular wp,String callback){
 		//验证对象数据的完整性，合法性
-		System.out.println("WP       "+wp);
 		int id = iwp.add(wp);
+		System.out.println(wp);
 		String imageUrl=WXUserUtil.getImageUrl(wp.getEventKey());//二维码图片url地址
 		boolean setImageUrlResult = iwp.setImageUrl(imageUrl, id);
 		PrintWriter out=null;
@@ -211,12 +207,9 @@ public class Statistics {
 		System.out.println(resultJson.toString());
 		try {
 			out = resp.getWriter();
-			if(callback==null){
-				out.write(resultJson.toString());
-			}else{
-				out.write(callback+"("+resultJson.toString()+")");
-				
-			}
+			//解决跨域的问题
+			String crossDomain = WXUserUtil.crossDomain(callback, resultJson);
+			out.write(crossDomain);
 		   
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

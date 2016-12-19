@@ -25,7 +25,6 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 		// TODO Auto-generated method stub
 		try {
 			 this.getHibernateTemplate().save(wxPar);
-			 System.out.println("wxPar     "+wxPar);
 			 return wxPar.getId();//新增成功，返回Id
 		} catch (RuntimeException e) {
 			// TODO: handle exception
@@ -99,8 +98,6 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 		// TODO Auto-generated method stub
 		Session session = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
 		WxParticular wxParticular =(WxParticular) session.get(WxParticular.class,id);
-		System.out.println(wxParticular);
-		System.out.println(id);
 		wxParticular.setImageUrl(imageUrl);//修改imageUrl
 		Transaction transaction = session.beginTransaction();
 		transaction.begin();
@@ -157,7 +154,6 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 	public Long countByEventKey(String hql, Object[] values) {
 		// TODO Auto-generated method stub
 		List<Object> count =this.getHibernateTemplate().find(hql,values);
-		System.out.println("关注人数"+count.get(0));
 		return (Long)count.get(0);
 	}
 

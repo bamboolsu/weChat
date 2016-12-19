@@ -56,9 +56,9 @@ public class WXUserUtil {
     			try {
 					String sendPostBuffer = HttpUtils.sendPostBuffer(url, jsonObj.toString());
 					JSONObject str=JSONObject.fromObject(sendPostBuffer);
-					System.out.println(str);
+					
 					imageUrl=(java.lang.String) GlobalConstants.interfaceUrlProperties.get("getImageUrl")+"?ticket="+str.getString("ticket");
-					System.out.println(imageUrl);
+					
 				} catch (ClientProtocolException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -69,5 +69,22 @@ public class WXUserUtil {
     	
     	
     	return imageUrl;
+    }
+    
+    /**
+     * 解决跨域问题
+     * @param callback  
+     * @param jsonObj  json数据
+     * @return
+     */
+    public static String crossDomain(String callback,JSONObject jsonObj){
+    	
+    	if(callback==null){
+    		return jsonObj.toString();
+    	}else{
+    		String resposeStr=callback+"("+jsonObj.toString()+")";
+    		return resposeStr;
+    	}
+    	
     }
 }
