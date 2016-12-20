@@ -28,6 +28,7 @@ public class WXUserUtil {
     	try {
 			 String result = HttpUtils.sendGet(GlobalConstants.getInterfaceUrl("UserInfoUrl"), params);
 			 JSONObject js=JSONObject.fromObject(result);	
+			 System.out.println("wxuserInfo   is"+js);
 			WxUser wUser=new WxUser(js);
 			return wUser;
 		} catch (Exception e) {

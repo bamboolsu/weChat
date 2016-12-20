@@ -28,7 +28,9 @@ public class NumberOfSubscriptionsBizImpl implements INumberOfSubscriptionsBiz{
 	
 
 	
-
+   /**
+    * 根据id将event对象的状态修改为0---取消关注
+    */
 	public void delete(String openId) {
 		// TODO Auto-generated method stub
 		try {

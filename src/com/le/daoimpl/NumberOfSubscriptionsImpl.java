@@ -15,6 +15,9 @@ import com.le.entity.WxUser;
 @Repository
 public class NumberOfSubscriptionsImpl extends BaseDao implements INumberOfSubscriptionsDao{
 
+	/**
+	 * Ìí¼ÓNumberOfSubscriptions£¬WxUser
+	 */
 	public void save(com.le.entity.NumberOfSubscriptions nos,WxUser wx) {
 		// TODO Auto-generated method stub
 		nos.setWxuser(wx);
@@ -23,9 +26,14 @@ public class NumberOfSubscriptionsImpl extends BaseDao implements INumberOfSubsc
 		Transaction beginTransaction = currentSession.beginTransaction();
 		beginTransaction.begin();
 		try {
-		
+		NumberOfSubscriptions findById = findById(nos.getOpenID());
+		if(findById!=null){
+			findById.setState(1);
+			currentSession.update(findById);
+		}else{
 			currentSession.save(nos);
-			currentSession.save(wx);
+		}
+			currentSession.saveOrUpdate(wx);
 			beginTransaction.commit();
 		} catch (RuntimeException e) {
 			// TODO: handle exception
@@ -35,6 +43,8 @@ public class NumberOfSubscriptionsImpl extends BaseDao implements INumberOfSubsc
 		
 	}
 
+	
+	
 	public NumberOfSubscriptions findById(String openId) {
 		// TODO Auto-generated method stub
 		NumberOfSubscriptions nos=this.getHibernateTemplate().get(NumberOfSubscriptions.class, openId);
@@ -55,11 +65,10 @@ public class NumberOfSubscriptionsImpl extends BaseDao implements INumberOfSubsc
 
 	public void update(NumberOfSubscriptions nos) {
 		// TODO Auto-generated method stub
+		Session session = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
 		try {
-			this.getHibernateTemplate().update(nos);
-			
+			session.update(nos);
 		} catch (RuntimeException e) {
-			// TODO: handle exception
 			throw e;
 		}
 	}

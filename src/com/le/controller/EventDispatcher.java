@@ -24,6 +24,7 @@ public class EventDispatcher implements IEventDispatcher{
 	private  INumberOfSubscriptionsBiz nosb;
 	public  String processEvent(Map<String, String> map)  {
         if (map.get("Event").equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) { //关注事件
+        	System.out.println("关注事件");
             String date = DateUtil.TimeStampDate(map.get("CreateTime"),"yyyy-MM-dd HH:mm:ss");
             map.put("CreateTime", date);
             NumberOfSubscriptions ns=new NumberOfSubscriptions(map);
@@ -33,6 +34,7 @@ public class EventDispatcher implements IEventDispatcher{
 
         if (map.get("Event").equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) { //取消关注事件
             //删除该用户(将用户的状态修改为0)
+        	System.out.println("取消关注事件");
            this.nosb.delete(map.get("FromUserName"));
         }
 
