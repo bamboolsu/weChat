@@ -1,20 +1,22 @@
 package com.le.controller;
 
+
 import java.util.Map;
-import java.util.Set;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.le.biz.INumberOfSubscriptionsBiz;
-import com.le.bizimpl.NumberOfSubscriptionsBizImpl;
+
 import com.le.entity.NumberOfSubscriptions;
 import com.le.icontroller.IEventDispatcher;
 
 import com.le.util.DateUtil;
 import com.le.util.MessageUtil;
+
 /**
- * ÊÂ¼þ·Ö·¢´¦Àí
+ * ï¿½Â¼ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
  * @author admin
  *
  */
@@ -23,8 +25,13 @@ public class EventDispatcher implements IEventDispatcher{
 	@Autowired
 	private  INumberOfSubscriptionsBiz nosb;
 	public  String processEvent(Map<String, String> map)  {
-        if (map.get("Event").equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) { //¹Ø×¢ÊÂ¼þ
-        	System.out.println("¹Ø×¢ÊÂ¼þ");
+        if (map.get("Event").equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) { //ï¿½ï¿½×¢ï¿½Â¼ï¿½
+        	
+        	/*Set<String> keys = map.keySet();
+        	for (String key : keys) {
+				System.out.println(key);
+			}*/
+        	
             String date = DateUtil.TimeStampDate(map.get("CreateTime"),"yyyy-MM-dd HH:mm:ss");
             map.put("CreateTime", date);
             NumberOfSubscriptions ns=new NumberOfSubscriptions(map);
@@ -32,26 +39,26 @@ public class EventDispatcher implements IEventDispatcher{
             
         }
 
-        if (map.get("Event").equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) { //È¡Ïû¹Ø×¢ÊÂ¼þ
-            //É¾³ý¸ÃÓÃ»§(½«ÓÃ»§µÄ×´Ì¬ÐÞ¸ÄÎª0)
-        	System.out.println("È¡Ïû¹Ø×¢ÊÂ¼þ");
+        if (map.get("Event").equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) { //È¡ï¿½ï¿½ï¿½ï¿½×¢ï¿½Â¼ï¿½
+            //É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½(ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½×´Ì¬ï¿½Þ¸ï¿½Îª0)
+        	System.out.println("È¡ï¿½ï¿½ï¿½ï¿½×¢ï¿½Â¼ï¿½");
            this.nosb.delete(map.get("FromUserName"));
         }
 
-        if (map.get("Event").equals(MessageUtil.EVENT_TYPE_SCAN)) { //É¨Ãè¶þÎ¬ÂëÊÂ¼þ
-            System.out.println("==============ÕâÊÇÉ¨Ãè¶þÎ¬ÂëÊÂ¼þ£¡");
+        if (map.get("Event").equals(MessageUtil.EVENT_TYPE_SCAN)) { //É¨ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½Â¼ï¿½
+            System.out.println("==============ï¿½ï¿½ï¿½ï¿½É¨ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½");
         }
 
-        if (map.get("Event").equals(MessageUtil.EVENT_TYPE_LOCATION)) { //Î»ÖÃÉÏ±¨ÊÂ¼þ
-            System.out.println("==============ÕâÊÇÎ»ÖÃÉÏ±¨ÊÂ¼þ£¡");
+        if (map.get("Event").equals(MessageUtil.EVENT_TYPE_LOCATION)) { //Î»ï¿½ï¿½ï¿½Ï±ï¿½ï¿½Â¼ï¿½
+            System.out.println("==============ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ï±ï¿½ï¿½Â¼ï¿½ï¿½ï¿½");
         }
 
-        if (map.get("Event").equals(MessageUtil.EVENT_TYPE_CLICK)) { //×Ô¶¨Òå²Ëµ¥µã»÷ÊÂ¼þ
-            System.out.println("==============ÕâÊÇ×Ô¶¨Òå²Ëµ¥µã»÷ÊÂ¼þ£¡");
+        if (map.get("Event").equals(MessageUtil.EVENT_TYPE_CLICK)) { //ï¿½Ô¶ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
+            System.out.println("==============ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½");
         }
 
-        if (map.get("Event").equals(MessageUtil.EVENT_TYPE_VIEW)) { //×Ô¶¨Òå²Ëµ¥ View ÊÂ¼þ
-            System.out.println("==============ÕâÊÇ×Ô¶¨Òå²Ëµ¥ View ÊÂ¼þ£¡");
+        if (map.get("Event").equals(MessageUtil.EVENT_TYPE_VIEW)) { //ï¿½Ô¶ï¿½ï¿½ï¿½Ëµï¿½ View ï¿½Â¼ï¿½
+            System.out.println("==============ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Ëµï¿½ View ï¿½Â¼ï¿½ï¿½ï¿½");
         }
         
         return null;

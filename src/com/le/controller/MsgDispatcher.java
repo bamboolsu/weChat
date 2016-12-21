@@ -1,47 +1,77 @@
 package com.le.controller;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.springframework.stereotype.Repository;
 
 import com.le.icontroller.IMessageDispatcher;
 import com.le.util.MessageUtil;
+import com.le.wechat.entity.TextMessage;
 
 /**
- * 普通消息分发
+ * 锟斤拷通锟斤拷息锟街凤拷
  * @author admin
  *
  */
 @Repository
 public class MsgDispatcher implements IMessageDispatcher{
 	public  String processMessage(Map<String, String> map) {
-        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // 文本消息
-            System.out.println("==============这是文本消息！");
+		String openid=map.get("FromUserName"); //鐢ㄦ埛openid
+		String mpid=map.get("ToUserName");   //鍏紬鍙峰師濮婭D
+      	TextMessage textMess=new TextMessage();
+      	textMess.setFromUserName(openid);
+      	textMess.setToUserName(mpid);
+      	textMess.setCreateTime(new Date().getTime());
+        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // 锟侥憋拷锟斤拷息
+            System.out.println("鏂囧瓧鍥炲");
             Set<String> keySet = map.keySet();
             for (String string : keySet) {
 				System.out.println("key    "+string+"    value    "+map.get(string));
 			}
+          
+        	textMess.setMsgType(MessageUtil.REQ_MESSAGE_TYPE_TEXT);
+        	textMess.setContent("aaaa");
+        	String textMessageToXml = MessageUtil.textMessageToXml(textMess);
+        	String asXML=null;
+        	try {
+				Document parseText = DocumentHelper.parseText(textMessageToXml);
+				Element root = parseText.getRootElement();
+				Element CreateTimeNode = root.element("CreateTime");
+				CreateTimeNode.setText(Long.toString(new Date().getTime()));
+			    asXML = root.asXML();
+				System.out.println("asxml is    ======================== "+asXML);
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            return asXML;
         }
 
-        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) { // 图片消息
-            System.out.println("==============这是图片消息！");
+        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) { // 图片锟斤拷息
+            System.out.println("==============锟斤拷锟斤拷图片锟斤拷息锟斤拷");
         }
 
-        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_LINK)) { // 链接消息
-            System.out.println("==============这是链接消息！");
+        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_LINK)) { // 锟斤拷锟斤拷锟斤拷息
+            System.out.println("==============锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷息锟斤拷");
         }
 
-        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)) { // 位置消息
-            System.out.println("==============这是位置消息！");
+        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)) { // 位锟斤拷锟斤拷息
+            System.out.println("==============锟斤拷锟斤拷位锟斤拷锟斤拷息锟斤拷");
         }
 
-        /*if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_VIDEO)) { // 视频消息
-            System.out.println("==============这是视频消息！");
+        /*if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_VIDEO)) { // 锟斤拷频锟斤拷息
+            System.out.println("==============锟斤拷锟斤拷锟斤拷频锟斤拷息锟斤拷");
         }*/
 
-        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) { // 语音消息
-            System.out.println("==============这是语音消息！");
+        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) { // 锟斤拷锟斤拷锟斤拷息
+            System.out.println("==============锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷息锟斤拷");
         }
 
         return null;

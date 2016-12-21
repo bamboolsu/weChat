@@ -1,5 +1,6 @@
 package com.le.util;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
 import java.util.HashMap;
@@ -9,10 +10,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-
+import com.le.wechat.entity.ImageMessage;
+import com.le.wechat.entity.TextMessage;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
@@ -27,74 +30,74 @@ import com.thoughtworks.xstream.io.xml.XppDriver;
  */
 public class MessageUtil {
 	/** 
-     * ·µ»ØÏûÏ¢ÀàĞÍ£ºÎÄ±¾ 
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ä±ï¿½ 
      */  
     public static final String RESP_MESSAGE_TYPE_TEXT = "text";  
 
     /** 
-     * ·µ»ØÏûÏ¢ÀàĞÍ£ºÒôÀÖ 
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ 
      */  
     public static final String RESP_MESSAGE_TYPE_MUSIC = "music";  
 
     /** 
-     * ·µ»ØÏûÏ¢ÀàĞÍ£ºÍ¼ÎÄ 
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í£ï¿½Í¼ï¿½ï¿½ 
      */  
     public static final String RESP_MESSAGE_TYPE_NEWS = "news";  
 
     /** 
-     * ÇëÇóÏûÏ¢ÀàĞÍ£ºÎÄ±¾ 
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ä±ï¿½ 
      */  
     public static final String REQ_MESSAGE_TYPE_TEXT = "text";  
 
     /** 
-     * ÇëÇóÏûÏ¢ÀàĞÍ£ºÍ¼Æ¬ 
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í£ï¿½Í¼Æ¬ 
      */  
     public static final String REQ_MESSAGE_TYPE_IMAGE = "image";  
 
     /** 
-     * ÇëÇóÏûÏ¢ÀàĞÍ£ºÁ´½Ó 
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ 
      */  
     public static final String REQ_MESSAGE_TYPE_LINK = "link";  
 
     /** 
-     * ÇëÇóÏûÏ¢ÀàĞÍ£ºµØÀíÎ»ÖÃ 
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ 
      */  
     public static final String REQ_MESSAGE_TYPE_LOCATION = "location";  
 
     /** 
-     * ÇëÇóÏûÏ¢ÀàĞÍ£ºÒôÆµ 
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½Æµ 
      */  
     public static final String REQ_MESSAGE_TYPE_VOICE = "voice";  
 
     /** 
-     * ÇëÇóÏûÏ¢ÀàĞÍ£ºÍÆËÍ 
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ 
      */  
     public static final String REQ_MESSAGE_TYPE_EVENT = "event";  
 
     /** 
-     * ÊÂ¼şÀàĞÍ£ºsubscribe(¶©ÔÄ) 
+     * ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Í£ï¿½subscribe(ï¿½ï¿½ï¿½ï¿½) 
      */  
     public static final String EVENT_TYPE_SUBSCRIBE = "subscribe";  
 
     /** 
-     * ÊÂ¼şÀàĞÍ£ºunsubscribe(È¡Ïû¶©ÔÄ) 
+     * ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Í£ï¿½unsubscribe(È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) 
      */  
     public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";  
 
     /**
-     * É¨Ãè´ø²ÎÊı¶şÎ¬ÂëÊÂ¼ş
+     * É¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½Â¼ï¿½
      */
     public static final String EVENT_TYPE_SCAN="SCAN";
     /**
-     * ÉÏ±¨µØÀíÎ»ÖÃÊÂ¼ş
+     * ï¿½Ï±ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Â¼ï¿½
      */
     public static final String EVENT_TYPE_LOCATION="LOCATION";
     /** 
-     * ÊÂ¼şÀàĞÍ£ºCLICK(×Ô¶¨Òå²Ëµ¥µã»÷ÊÂ¼ş) 
+     * ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Í£ï¿½CLICK(ï¿½Ô¶ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½) 
      */  
     public static final String EVENT_TYPE_VIEW="CLICK";
     /**
-     * µã»÷²Ëµ¥Ìø×ªÁ´½ÓÊ±µÄÊÂ¼şÍÆËÍ
+     * ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public static final String EVENT_TYPE_CLICK="VIEW";
     
@@ -105,151 +108,133 @@ public class MessageUtil {
      * @throws Exception
      */
     public static Map<String, String> parseXml(HttpServletRequest request) throws Exception {  
-        // ½«½âÎö½á¹û´æ´¢ÔÚ HashMap ÖĞ   
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ HashMap ï¿½ï¿½   
         Map<String, String> map = new HashMap<String, String>();  
 
-        // ´Ó request ÖĞÈ¡µÃÊäÈëÁ÷   
+        // ï¿½ï¿½ request ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   
         InputStream inputStream = request.getInputStream();  
-        // ¶ÁÈ¡ÊäÈëÁ÷   
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   
         SAXReader reader = new SAXReader();  
         Document document = reader.read(inputStream);  
-        // µÃµ½ xml ¸ùÔªËØ   
+        // ï¿½Ãµï¿½ xml ï¿½ï¿½Ôªï¿½ï¿½   
         Element root = document.getRootElement();  
-        // µÃµ½¸ùÔªËØµÄËùÓĞ×Ó½Úµã   
+        // ï¿½Ãµï¿½ï¿½ï¿½Ôªï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó½Úµï¿½   
         List<Element> elementList = root.elements();  
 
-        // ±éÀúËùÓĞ×Ó½Úµã   
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó½Úµï¿½   
         for (Element e : elementList)  
             map.put(e.getName(), e.getText());  
 
-        // ÊÍ·Å×ÊÔ´   
+        // ï¿½Í·ï¿½ï¿½ï¿½Ô´   
         inputStream.close();  
         inputStream = null;  
 
         return map;  
     }  
-    
-    public static Map<String, String> parseXml(InputStream inputStream) throws Exception {  
-        // ½«½âÎö½á¹û´æ´¢ÔÚ HashMap ÖĞ   
-        Map<String, String> map = new HashMap<String, String>();  
-        // ¶ÁÈ¡ÊäÈëÁ÷   
-        SAXReader reader = new SAXReader();  
-        Document document = reader.read(inputStream);  
-        // µÃµ½ xml ¸ùÔªËØ   
-        Element root = document.getRootElement();  
-        // µÃµ½¸ùÔªËØµÄËùÓĞ×Ó½Úµã   
-        List<Element> elementList = root.elements();  
-
-        // ±éÀúËùÓĞ×Ó½Úµã   
-        for (Element e : elementList)  
-            map.put(e.getName(), e.getText());  
-
-        // ÊÍ·Å×ÊÔ´   
-        inputStream.close();  
-        inputStream = null;  
-
-        return map;  
-    }  
-    
     
     /**
-     * @Description: ÎÄ±¾ÏûÏ¢¶ÔÏó×ª»»³É xml
+     * è·å–è¯·æ±‚ä¸­çš„xmlæ•°æ®
+     * @param request
+     * @return
+     * @throws IOException 
+     */
+    public static String convertXML(HttpServletRequest request) throws Exception{
+    	InputStream inputStream = request.getInputStream();  
+    	  SAXReader reader = new SAXReader();  
+          Document document = reader.read(inputStream);  
+          String asXML = document.asXML();
+          inputStream.close();
+    	return asXML;
+    }
+    
+    public static Map<String, String> parseXml(InputStream inputStream) throws Exception {  
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ HashMap ï¿½ï¿½   
+        Map<String, String> map = new HashMap<String, String>();  
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   
+        SAXReader reader = new SAXReader();  
+        Document document = reader.read(inputStream);  
+        // ï¿½Ãµï¿½ xml ï¿½ï¿½Ôªï¿½ï¿½   
+        Element root = document.getRootElement();  
+        // ï¿½Ãµï¿½ï¿½ï¿½Ôªï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó½Úµï¿½   
+        List<Element> elementList = root.elements();  
+
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó½Úµï¿½   
+        for (Element e : elementList)  
+            map.put(e.getName(), e.getText());  
+
+        // ï¿½Í·ï¿½ï¿½ï¿½Ô´   
+        inputStream.close();  
+        inputStream = null;  
+
+        return map;  
+    }  
+    
+    /**
+     * @Description: æ–‡æœ¬æ¶ˆæ¯å¯¹è±¡è½¬æ¢æˆ xml
      * @param @param textMessage
      * @param @return
      * @author dapengniao
-     * @date
+     * @date 2016 å¹´ 3 æœˆ 8 æ—¥ ä¸‹åˆ 4:13:22
      */
-//    public static String textMessageToXml(TextMessage textMessage) {
-//        xstream.alias("xml", textMessage.getClass());
-//        return xstream.toXML(textMessage);
-//    }
-
+    public static String textMessageToXml(TextMessage textMessage) {
+        xstream.alias("xml", textMessage.getClass());
+        return xstream.toXML(textMessage);
+    }
+    
+    
     /**
-     * @Description: Í¼ÎÄÏûÏ¢¶ÔÏó×ª»»³É xml
+     * @Description: å›¾æ–‡æ¶ˆæ¯å¯¹è±¡è½¬æ¢æˆ xml
      * @param @param newsMessage
      * @param @return
      * @author dapengniao
-     * @date 
+     * @date 2016 å¹´ 3 æœˆ 8 æ—¥ ä¸‹åˆ 4:14:09
      */
-//    public static String newsMessageToXml(NewsMessage newsMessage) {
-//        xstream.alias("xml", newsMessage.getClass());
-//        xstream.alias("item", new Article().getClass());
-//        return xstream.toXML(newsMessage);
-//    }
-//
-//    /**
-//     * @Description: Í¼Æ¬ÏûÏ¢¶ÔÏó×ª»»³É xml
-//     * @param @param imageMessage
-//     * @param @return
-//     * @author dapengniao
-//     * @date 2016 Äê 3 ÔÂ 9 ÈÕ ÉÏÎç 9:25:51
-//     */
-//    public static String imageMessageToXml(ImageMessage imageMessage) {
-//        xstream.alias("xml", imageMessage.getClass());
-//        return xstream.toXML(imageMessage);
-//    }
-//
-//    /**
-//     * @Description: ÓïÒôÏûÏ¢¶ÔÏó×ª»»³É xml
-//     * @param @param voiceMessage
-//     * @param @return
-//     * @author dapengniao
-//     * @date 
-//     */
-//    public static String voiceMessageToXml(VoiceMessage voiceMessage) {
-//        xstream.alias("xml", voiceMessage.getClass());
-//        return xstream.toXML(voiceMessage);
-//    }
-//
-//    /**
-//     * @Description: ÊÓÆµÏûÏ¢¶ÔÏó×ª»»³É xml
-//     * @param @param videoMessage
-//     * @param @return
-//     * @author dapengniao
-//     * @date 
-//     */
-//    public static String videoMessageToXml(VideoMessage videoMessage) {
-//        xstream.alias("xml", videoMessage.getClass());
-//        return xstream.toXML(videoMessage);
-//    }
-//
-//    /**
-//     * @Description: ÒôÀÖÏûÏ¢¶ÔÏó×ª»»³É xml
-//     * @param @param musicMessage
-//     * @param @return
-//     * @author dapengniao
-//     * @date 
-//     */
-//    public static String musicMessageToXml(MusicMessage musicMessage) {
-//        xstream.alias("xml", musicMessage.getClass());
-//        return xstream.toXML(musicMessage);
-//    }
-//
-//    /**
-//     * ¶ÔÏóµ½ xml µÄ´¦Àí
-//     */
-//    private static XStream xstream = new XStream(new XppDriver() {
-//        public HierarchicalStreamWriter createWriter(Writer out) {
-//            return new PrettyPrintWriter(out) {
-//                // ¶ÔËùÓĞ xml ½ÚµãµÄ×ª»»¶¼Ôö¼Ó CDATA ±ê¼Ç
-//                boolean cdata = true;
-//
-//                @SuppressWarnings("rawtypes")
-//                public void startNode(String name, Class clazz) {
-//                    super.startNode(name, clazz);
-//                }
-//
-//                protected void writeText(QuickWriter writer, String text) {
-//                    if (cdata) {
-//                        writer.write("<![CDATA[");
-//                        writer.write(text);
-//                        writer.write("]]>");
-//                    } else {
-//                        writer.write(text);
-//                    }
-//                }
-//            };
-//        }
-//    });
+   /* public static String newsMessageToXml(ImageMessage newsMessage) {
+        xstream.alias("xml", newsMessage.getClass());
+        xstream.alias("item", new ImageMessage().getClass());
+        return xstream.toXML(newsMessage);
+    }**/
+
+   
+    /**
+     * @Description: å›¾ç‰‡æ¶ˆæ¯å¯¹è±¡è½¬æ¢æˆ xml
+     * @param @param imageMessage
+     * @param @return
+     * @author dapengniao
+     * @date 2016 å¹´ 3 æœˆ 9 æ—¥ ä¸Šåˆ 9:25:51
+     */
+    public static String imageMessageToXml(ImageMessage imageMessage) {
+        xstream.alias("xml", imageMessage.getClass());
+        return xstream.toXML(imageMessage);
+    }
+    
+    
+    /**
+     * å¯¹è±¡åˆ° xml çš„å¤„ç†
+     */
+    private static XStream xstream = new XStream(new XppDriver() {
+        public HierarchicalStreamWriter createWriter(Writer out) {
+            return new PrettyPrintWriter(out) {
+                // å¯¹æ‰€æœ‰ xml èŠ‚ç‚¹çš„è½¬æ¢éƒ½å¢åŠ  CDATA æ ‡è®°
+                boolean cdata = true;
+
+                @SuppressWarnings("rawtypes")
+                public void startNode(String name, Class clazz) {
+                    super.startNode(name, clazz);
+                }
+
+                protected void writeText(QuickWriter writer, String text) {
+                    if (cdata) {
+                    	
+                        writer.write("<![CDATA[");
+                        writer.write(text);
+                        writer.write("]]>");
+                    } else {
+                        writer.write(text);
+                    }
+                }
+            };
+        }
+    });
     
 }

@@ -2,6 +2,7 @@ package com.le.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.le.icontroller.IEventDispatcher;
 import com.le.icontroller.IMessageDispatcher;
+import com.le.util.DateUtil;
 import com.le.util.MessageUtil;
 import com.le.util.Signature;
 
@@ -45,7 +47,7 @@ public class WechatSecurity {
 	}
 
 	/**
-	 * ÑéÖ¤Î¢ĞÅ·şÎñÆ÷
+	 * ï¿½ï¿½Ö¤Î¢ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param request
 	 * @param response
 	 * @param signature
@@ -70,7 +72,7 @@ public class WechatSecurity {
 							out.write(echostr);
 							out.close();
 				}else{
-							System.out.println("ÇëÇó·Ç·¨");	
+							System.out.println("ï¿½ï¿½ï¿½ï¿½Ç·ï¿½");	
 							}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -80,19 +82,38 @@ public class WechatSecurity {
 	
 	@RequestMapping(value="security",method=RequestMethod.POST)
 	public void doPost(HttpServletRequest request,HttpServletResponse response){
+
 		try {
 			Map<String, String> parseXml = MessageUtil.parseXml(request);
-			
+			response.setCharacterEncoding("utf-8");
 			String msgType = parseXml.get("MsgType");
 			System.out.println("msgType  "+msgType);
+			 
 			if(MessageUtil.REQ_MESSAGE_TYPE_EVENT.equals(msgType)){
-				ed.processEvent(parseXml);
+				PrintWriter out = response.getWriter();
+				String resp = md.processMessage(parseXml);
+				
+				//String xml = DateUtil.c(resp);
+				System.out.println("æœåŠ¡ç«¯å¤„ç†     "+resp);
+				out.write(resp);
+				out.close();
 			}else{
-				md.processMessage(parseXml);
+				//String test="<xml><ToUserName><![CDATA[gh_6ec1abe61668]]></ToUserName><FromUserName><![CDATA[o0ihMw3bBXGQzQFBrr_yQg9lSfHw]]></FromUserName><CreateTime>"+new Date().getTime()+"</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[ä½ å¥½]]></Content>"+"</xml>";
+				PrintWriter out = response.getWriter();
+				String resp = md.processMessage(parseXml);
+				
+				//String xml = DateUtil.c(resp);
+				System.out.println("æœåŠ¡ç«¯å¤„ç†     "+resp);
+				out.write(resp);
+				out.flush();
+				out.close();
 			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			
 		}
 	}
 

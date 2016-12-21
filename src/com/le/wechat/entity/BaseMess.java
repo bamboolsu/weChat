@@ -1,16 +1,16 @@
 package com.le.wechat.entity;
 /**
  * ClassName:BaseMess
- * Î¢ÐÅÇëÇóÏûÏ¢»ù±¾Àà
- * @author Å·ÑôÎÄöª
+ * Î¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @author Å·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  *
  */
 public class BaseMess {
-    private String ToUserName;//¿ª·¢ÕßÎ¢ÐÅºÅ
-    private String FromUserName;//·¢ËÍ·½ÕÊºÅ£¨Ò»¸öOpenID£©
-    private long CreateTime;//ÏûÏ¢´´½¨Ê±¼ä
-    private String MsgType;//ÏûÏ¢ÀàÐÍ text£¬image£¬urlµÈ
-    private long MsgId;//ÏûÏ¢id
+    private String ToUserName;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¢ï¿½Åºï¿½
+    private String FromUserName;//ï¿½ï¿½ï¿½Í·ï¿½ï¿½ÊºÅ£ï¿½Ò»ï¿½ï¿½OpenIDï¿½ï¿½
+    private long CreateTime;//ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+    private String MsgType;//ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ textï¿½ï¿½imageï¿½ï¿½urlï¿½ï¿½
+   // private long MsgId;//ï¿½ï¿½Ï¢id
 	public String getToUserName() {
 		return ToUserName;
 	}
@@ -35,10 +35,5 @@ public class BaseMess {
 	public void setMsgType(String msgType) {
 		MsgType = msgType;
 	}
-	public long getMsgId() {
-		return MsgId;
-	}
-	public void setMsgId(long msgId) {
-		MsgId = msgId;
-	}
+	
 }
