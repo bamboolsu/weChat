@@ -52,9 +52,7 @@ public class NumberOfSubscriptionsBizImpl implements INumberOfSubscriptionsBiz{
 		
 		try {
 			nos.setState(1);
-			
 			 WxUser weChatUser = WXUserUtil.getWeChatUser(nos.getOpenID());
-			 
 			 inos.save(nos,weChatUser);
 		} catch (RuntimeException e) {
 			// TODO: handle exception

@@ -82,7 +82,9 @@ public class WechatSecurity {
 	public void doPost(HttpServletRequest request,HttpServletResponse response){
 		try {
 			Map<String, String> parseXml = MessageUtil.parseXml(request);
+			
 			String msgType = parseXml.get("MsgType");
+			System.out.println("msgType  "+msgType);
 			if(MessageUtil.REQ_MESSAGE_TYPE_EVENT.equals(msgType)){
 				ed.processEvent(parseXml);
 			}else{

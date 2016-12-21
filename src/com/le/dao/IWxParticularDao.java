@@ -26,5 +26,5 @@ public interface IWxParticularDao {
    
    public Long countByEventKey(String hql,Object[] values);
    
-   
+   public List<Object[]> getAll();
 }

@@ -66,9 +66,13 @@ public class NumberOfSubscriptionsImpl extends BaseDao implements INumberOfSubsc
 	public void update(NumberOfSubscriptions nos) {
 		// TODO Auto-generated method stub
 		Session session = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 		try {
+			transaction.begin();
 			session.update(nos);
+			transaction.commit();
 		} catch (RuntimeException e) {
+			transaction.rollback();
 			throw e;
 		}
 	}
@@ -80,5 +84,7 @@ public class NumberOfSubscriptionsImpl extends BaseDao implements INumberOfSubsc
 		System.out.println(str);
 		return Integer.parseInt(str);
 	}
+	
+	
 
 }

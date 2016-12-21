@@ -22,9 +22,11 @@ public interface IWxParticularBiz {
      
      public WxParticular findWxParticularById(int id);
      
-     public List<LeType> getAll();
+     public List<LeType> getAllType();
      
      public void test();
      
      public Long getCount(Integer eventKey,Integer date,Integer state);
+     
+     public List<Object[]> getAll();
 }

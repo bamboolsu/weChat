@@ -135,7 +135,7 @@ public class Statistics {
 		req.setAttribute("wx", initWxParticulars);
 		Long sumPage = iwp.getSumPage(pageCount);
 		req.setAttribute("sumPage", sumPage);
-		List<LeType> types = iwp.getAll();
+		List<LeType> types = iwp.getAllType();
 		req.setAttribute("type", types);
 		return "index";
 	}
@@ -174,7 +174,7 @@ public class Statistics {
 	
 	@RequestMapping("/getLeType")
 	public void getAllLeType(HttpServletResponse resp,String callback){
-		List<LeType> leTypes = iwp.getAll();
+		List<LeType> leTypes = iwp.getAllType();
 		JSONObject jsonObj=new JSONObject();
 		jsonObj.put("leType", leTypes);
 		jsonObj.put("result", 1);
@@ -263,5 +263,34 @@ public class Statistics {
 		return "Query";
 	}
 	
-	
+	/**
+	 * 查询所有统计信息相关的数据
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/getAll")
+	public void getAll(HttpServletResponse resp,String callback){
+		List<Object[]> list = iwp.getAll();
+		
+		JSONArray jsonArr=new JSONArray();
+         for (Object[] objects : list) {
+			jsonArr.add(objects);
+		}
+		JSONObject json=new JSONObject();
+		json.put("allMess", jsonArr);
+		json.put("result", 1);
+		System.out.println(json);
+		//解决跨域问题
+		String crossDomain = WXUserUtil.crossDomain(callback, json);
+		PrintWriter out=null;
+		try {
+			 out = resp.getWriter();
+			 out.write(crossDomain);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			out.close();
+		}
+	}
 }

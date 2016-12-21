@@ -3,6 +3,7 @@ package com.le.bizimpl;
 
 import java.util.List;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -118,16 +119,16 @@ public class WxParticularBizImpl implements IWxParticularBiz{
 		return findWxParticularById;
 	}
 
-	public List<LeType> getAll() {
+	public List<Object[]> getAll() {
 		// TODO Auto-generated method stub
-		List<LeType> leTypes = ild.getAll();
-		return leTypes;
+		List<Object[]> list = iwp.getAll();//所有统计相关的信息
+		return list;
 	}
 
 	public void test() {
 		// TODO Auto-generated method stub
 		//iwp.test();
-		Integer eventKey=123;
+		/*Integer eventKey=123;
 		Integer state=1;
 		//SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		String someTime = DateUtil.SomeTime(-30);
@@ -136,7 +137,8 @@ public class WxParticularBizImpl implements IWxParticularBiz{
 		System.out.println(someTime);
 		Object values[]={eventKey,state,someTime};
 		String hql="select count(user.openId) from NumberOfSubscriptions nos , WxUser  user   where nos.eventKey=? and nos.state=? and user.subscribeTime>=?";
-		iwp.countByEventKey(hql, values);
+		iwp.countByEventKey(hql, values);*/
+		iwp.test();
 	}
 
 	/**
@@ -146,9 +148,15 @@ public class WxParticularBizImpl implements IWxParticularBiz{
 		// TODO Auto-generated method stub
 		String someTime = DateUtil.SomeTime(date);
 		Object values[]={eventKey,state,someTime};
-		String hql="select count(user.openId) from NumberOfSubscriptions nos , WxUser  user   where nos.eventKey=? and nos.state=? and user.subscribeTime>=?";
+		String hql="select count(user.openId) from NumberOfSubscriptions nos , WxUser  user   where  nos.state=?  and nos.eventKey=?  and user.subscribeTime>=?";
 		Long countByEventKey = iwp.countByEventKey(hql, values);
 		return countByEventKey;
+	}
+
+	public List<LeType> getAllType() {
+		// TODO Auto-generated method stub
+		List<LeType> leTypes = ild.getAll();
+		return leTypes;
 	}
 
 }

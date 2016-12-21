@@ -8,5 +8,6 @@
         <mapping resource="com/le/entity/WxUser.hbm.xml"/>
         <mapping resource="com/le/entity/LeType.hbm.xml"/>
         <mapping resource="com/le/entity/WxParticular.hbm.xml"/>
+        
     </session-factory>
 </hibernate-configuration>

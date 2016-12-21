@@ -4,6 +4,7 @@ package com.le.daoimpl;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
 
@@ -121,12 +122,12 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 	public void test() {
 		// TODO Auto-generated method stub
 		
-			List<WxUser> find = this.getHibernateTemplate().find("from WxUser");
+			/*List<WxUser> find = this.getHibernateTemplate().find("from WxUser");
 			System.out.println(find.size());
 			for (WxUser wxParticular : find) {
 				System.out.println(wxParticular);
 				System.out.println(wxParticular.getNos()); 
-			}
+			}*/
 		
 	}
 
@@ -153,8 +154,37 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 	 */
 	public Long countByEventKey(String hql, Object[] values) {
 		// TODO Auto-generated method stub
-		List<Object> count =this.getHibernateTemplate().find(hql,values);
-		return (Long)count.get(0);
+		Session session = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
+		Query query = session.createSQLQuery("select count(nos.openID) from  wx_event nos INNER JOIN  wx_user  u on u.openID=nos.openID where nos.EventKey=? and nos.state=? and u.subscribe_time>=?");
+		query.setInteger(0,(Integer) values[0]);
+		query.setInteger(1, (Integer) values[1]);
+		query.setString(2, (String) values[2]);
+		List<Object> count=query.list();
+		Long l=new Long(count.get(0).toString());
+		return l;
+	}
+
+	/**
+	 * 查询所有
+	 */
+	public List<Object[]> getAll() {
+		Session session = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
+		String sql="SELECT DISTINCT   wp.EventKey as '二维码参数',wp.`name` as '姓名',"+
+		"(select count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey and we.state=1 and wu.subscribe_time>=CURDATE()) as '今天关注人数',"+
+		" (SELECT count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey and we.state=1 and wu.subscribe_time>=date_sub(now(),interval 3 day)) as '三天内关注人数',"+
+		" (select count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey and we.state=1 and wu.subscribe_time>=date_sub(now(),interval 7 day)) as '一周内关注人数',"+
+		"(select count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey and we.state=1 and wu.subscribe_time>=date_sub(now(),interval 30 day)) as '一个月内关注人数',"+
+		"leType.type as '推广类型'"+"from wx_particular wp INNER JOIN le_type leType on leType.letype_id=wp.leType_id";
+		List<Object[]> list = session.createSQLQuery(sql).list();
+		System.out.println("test");
+		for (Object[] objects : list) {
+			for (int i = 0; i < objects.length; i++) {
+				System.out.print("  "+objects[i]+"   ");
+			}
+			System.out.println();
+		}
+		
+		return list;
 	}
 
 	
