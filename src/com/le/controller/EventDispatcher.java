@@ -58,21 +58,26 @@ public class EventDispatcher implements IEventDispatcher{
 
         if (map.get("Event").equals(MessageUtil.EVENT_TYPE_SCAN)) { //扫描二维码事件
             System.out.println("==============这是扫描二维码事件！");
+            return "";
         }
 
         if (map.get("Event").equals(MessageUtil.EVENT_TYPE_LOCATION)) { //位置上报事件
             System.out.println("==============这是位置上报事件！");
+            return "";
         }
 
         if (map.get("Event").equals(MessageUtil.EVENT_TYPE_CLICK)) { //自定义菜单点击事件
             System.out.println("==============这是自定义菜单点击事件！");
+            return "";
+            
         }
 
         if (map.get("Event").equals(MessageUtil.EVENT_TYPE_VIEW)) { //自定义菜单 View 事件
             System.out.println("==============这是自定义菜单 View 事件！");
+            return "";
         }
         
-        return null;
+        return "";
     }
 	public INumberOfSubscriptionsBiz getNosbi() {
 		return nosb;
