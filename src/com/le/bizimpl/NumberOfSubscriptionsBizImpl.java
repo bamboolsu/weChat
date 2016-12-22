@@ -29,7 +29,7 @@ public class NumberOfSubscriptionsBizImpl implements INumberOfSubscriptionsBiz{
 
 	
    /**
-    * ¸ù¾İid½«event¶ÔÏóµÄ×´Ì¬ĞŞ¸ÄÎª0---È¡Ïû¹Ø×¢
+    * æ ¹æ®openIdä¿®æ”¹å¯¹è±¡çš„çŠ¶æ€
     */
 	public void delete(String openId) {
 		// TODO Auto-generated method stub

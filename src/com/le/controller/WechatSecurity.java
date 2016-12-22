@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,7 +48,7 @@ public class WechatSecurity {
 	}
 
 	/**
-	 * ��֤΢�ŷ�����
+	 * 验证微信服务器
 	 * @param request
 	 * @param response
 	 * @param signature
@@ -72,7 +73,7 @@ public class WechatSecurity {
 							out.write(echostr);
 							out.close();
 				}else{
-							System.out.println("����Ƿ�");	
+					System.out.println("请求非法");	
 							}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -87,25 +88,27 @@ public class WechatSecurity {
 			Map<String, String> parseXml = MessageUtil.parseXml(request);
 			response.setCharacterEncoding("utf-8");
 			String msgType = parseXml.get("MsgType");
-			System.out.println("msgType  "+msgType);
+			String  event=parseXml.get("Event");
 			 
 			if(MessageUtil.REQ_MESSAGE_TYPE_EVENT.equals(msgType)){
 				PrintWriter out = response.getWriter();
-				String resp = md.processMessage(parseXml);
+				String resp=ed.processEvent(parseXml);
 				
 				//String xml = DateUtil.c(resp);
 				System.out.println("服务端处理     "+resp);
-				out.write(resp);
-				out.close();
+				if("unsubscribe".equals(event)){//取消关注事件则返回空串给微信服务器
+					out.write("");
+					out.close();
+				}else{
+					out.write(resp);
+					out.close();
+				}
+				
 			}else{
-				//String test="<xml><ToUserName><![CDATA[gh_6ec1abe61668]]></ToUserName><FromUserName><![CDATA[o0ihMw3bBXGQzQFBrr_yQg9lSfHw]]></FromUserName><CreateTime>"+new Date().getTime()+"</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[你好]]></Content>"+"</xml>";
 				PrintWriter out = response.getWriter();
 				String resp = md.processMessage(parseXml);
-				
-				//String xml = DateUtil.c(resp);
 				System.out.println("服务端处理     "+resp);
 				out.write(resp);
-				out.flush();
 				out.close();
 			}
 			
