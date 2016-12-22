@@ -26,8 +26,8 @@ public class MsgDispatcher implements IMessageDispatcher{
 		String openid=map.get("FromUserName"); //用户openid
 		String mpid=map.get("ToUserName");   //公众号原始ID
       	TextMessage textMess=new TextMessage();
-      	textMess.setFromUserName(openid);
-      	textMess.setToUserName(mpid);
+      	textMess.setFromUserName(mpid);
+      	textMess.setToUserName(openid);
       	textMess.setCreateTime(new Date().getTime());
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // �ı���Ϣ
             System.out.println("文字回复");
@@ -37,21 +37,9 @@ public class MsgDispatcher implements IMessageDispatcher{
 			}
           
         	textMess.setMsgType(MessageUtil.REQ_MESSAGE_TYPE_TEXT);
-        	textMess.setContent("aaaa");
+        	textMess.setContent("您好，乐积分客服已经上线啦，有任何关于“乐积分”“乐交易”的问题都可以通过添加乐积分客服微信：17317200971 进行咨询哦！\n在左下角“乐交易”中完成注册，就可以在交易首页的右下角“设置”-“我的礼券”中领取现金券啦\n回复“交易规则”查看交易方法，\n回复“使用规则”查看现金券使用规则，\n回复“经纪人”查看“秒变经纪人”方法");
         	String textMessageToXml = MessageUtil.textMessageToXml(textMess);
-        	String asXML=null;
-        	try {
-				Document parseText = DocumentHelper.parseText(textMessageToXml);
-				Element root = parseText.getRootElement();
-				Element CreateTimeNode = root.element("CreateTime");
-				CreateTimeNode.setText(Long.toString(new Date().getTime()));
-			    asXML = root.asXML();
-				System.out.println("asxml is    ======================== "+asXML);
-			} catch (DocumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            return asXML;
+            return textMessageToXml;
         }
 
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) { // ͼƬ��Ϣ

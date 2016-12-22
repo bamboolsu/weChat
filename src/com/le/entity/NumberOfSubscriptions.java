@@ -11,11 +11,11 @@ public class NumberOfSubscriptions {
 
 private String openID;
    
-   private String MsgType;//ÏûÏ¢ÀàĞÍ
+   private String MsgType;//ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
    
-   private String Event;//ÊÂ¼şÀàĞÍ
+   private String Event;//ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½
    
-   private Integer EventKey;//ÊÂ¼şKEYÖµ£¬qrscene_ÎªÇ°×º£¬ºóÃæÎª¶şÎ¬ÂëµÄ²ÎÊıÖµ
+   private Integer EventKey;//ï¿½Â¼ï¿½KEYÖµï¿½ï¿½qrscene_ÎªÇ°×ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Î¬ï¿½ï¿½Ä²ï¿½ï¿½ï¿½Öµ
    
    
   
@@ -78,18 +78,21 @@ public NumberOfSubscriptions(String openID){
 
 public NumberOfSubscriptions(Map<String, String> map){
 	this.CreateTime=map.get("CreateTime");
-	Integer eventKey=Integer.parseInt(map.get("EventKey").toString().substring(8));
-	System.out.println("eventKey"+eventKey);
-	this.EventKey=eventKey;
+	
+		Integer eventKey=Integer.parseInt(map.get("EventKey").toString().substring(8));
+		System.out.println("eventKey"+eventKey);
+		this.EventKey=eventKey;
+	
+	
 	this.Event=map.get("Event");
 	this.openID=map.get("FromUserName");
 	this.MsgType=map.get("MsgType");
 	this.Ticket=map.get("Ticket");
 }
 
-private String Ticket;//¶şÎ¬ÂëµÄticket£¬¿ÉÓÃÀ´»»È¡¶şÎ¬ÂëÍ¼Æ¬
+private String Ticket;//ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ticketï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Î¬ï¿½ï¿½Í¼Æ¬
    
-   private String  CreateTime;//ÏûÏ¢´´½¨Ê±¼ä
+   private String  CreateTime;//ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
    
    private int state;//×´Ì¬
 

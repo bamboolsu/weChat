@@ -14,7 +14,7 @@ import com.le.dao.IWxParticularDao;
 import com.le.entity.WxParticular;
 import com.le.entity.WxUser;
 /**
- * WxParticular±íµÄÔöÉ¾²é¸Ä
+ * WxParticularï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½
  * @author ouyangwenting
  *
  */
@@ -26,12 +26,12 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 		// TODO Auto-generated method stub
 		try {
 			 this.getHibernateTemplate().save(wxPar);
-			 return wxPar.getId();//ÐÂÔö³É¹¦£¬·µ»ØId
+			 return wxPar.getId();//ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Id
 		} catch (RuntimeException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return -1;//ÐÂÔöÊ§°Ü
+		return -1;//ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
 	}
 
 	public int deleteById(int id) {
@@ -39,12 +39,12 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 		try {
 			
 			 this.getHibernateTemplate().delete(this.getHibernateTemplate().get(WxParticular.class, new Long(id)));
-			 return 1;//É¾³ý³É¹¦
+			 return 1;//É¾ï¿½ï¿½ï¿½É¹ï¿½
 		} catch (RuntimeException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return -1;//É¾³ýÊ§°Ü
+		return -1;//É¾ï¿½ï¿½Ê§ï¿½ï¿½
 	}
 
 	public int updateById(WxParticular wxPar) {
@@ -60,7 +60,7 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 	}
 
 	/**
-	 * ·ÖÒ³²éÑ¯
+	 * ï¿½ï¿½Ò³ï¿½ï¿½Ñ¯
 	 */
 	public List<WxParticular> getAll(int startLine,int pageCount) {
 		// TODO Auto-generated method stub
@@ -72,7 +72,7 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 	}
 
 	/**
-	 * »ñÈ¡×ÜÌõÄ¿Êý
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 	 */
 	public long getCount() {
 		// TODO Auto-generated method stub
@@ -82,7 +82,7 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 	}
 
 	/**
-	 * ¸ù¾Ýid²éÑ¯¶þÎ¬Âë²ÎÊý
+	 * ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½Ñ¯ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public int getEventKey(int id) {
 		// TODO Auto-generated method stub
@@ -93,19 +93,19 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 	}
 
 	/**
-	 * ÐÞ¸Ä¶þÎ¬ÂëÍ¼Æ¬µØÖ·
+	 * ï¿½Þ¸Ä¶ï¿½Î¬ï¿½ï¿½Í¼Æ¬ï¿½ï¿½Ö·
 	 */
 	public int setImageUrl(String imageUrl,int id) {
 		// TODO Auto-generated method stub
 		Session session = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
 		WxParticular wxParticular =(WxParticular) session.get(WxParticular.class,id);
-		wxParticular.setImageUrl(imageUrl);//ÐÞ¸ÄimageUrl
+		wxParticular.setImageUrl(imageUrl);//ï¿½Þ¸ï¿½imageUrl
 		Transaction transaction = session.beginTransaction();
 		transaction.begin();
 		try {
 			session.save(wxParticular);
 			transaction.commit();
-			return 1;//ÐÞ¸Ä³É¹¦
+			return 1;//ï¿½Þ¸Ä³É¹ï¿½
 		} catch (RuntimeException e) {
 			// TODO: handle exception
 			transaction.rollback();
@@ -146,7 +146,7 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 	}
 
 	/**
-	 * Ä³¶ÎÊ±¼ä¹Ø×¢ÊýÁ¿
+	 * Ä³ï¿½ï¿½Ê±ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½
 	 * @param eventKey
 	 * @param date
 	 * @param state
@@ -165,16 +165,16 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 	}
 
 	/**
-	 * ²éÑ¯ËùÓÐ
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	 */
 	public List<Object[]> getAll() {
 		Session session = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
-		String sql="SELECT DISTINCT   wp.EventKey as '¶þÎ¬Âë²ÎÊý',wp.`name` as 'ÐÕÃû',"+
-		"(select count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey and we.state=1 and wu.subscribe_time>=CURDATE()) as '½ñÌì¹Ø×¢ÈËÊý',"+
-		" (SELECT count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey and we.state=1 and wu.subscribe_time>=date_sub(now(),interval 3 day)) as 'ÈýÌìÄÚ¹Ø×¢ÈËÊý',"+
-		" (select count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey and we.state=1 and wu.subscribe_time>=date_sub(now(),interval 7 day)) as 'Ò»ÖÜÄÚ¹Ø×¢ÈËÊý',"+
-		"(select count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey and we.state=1 and wu.subscribe_time>=date_sub(now(),interval 30 day)) as 'Ò»¸öÔÂÄÚ¹Ø×¢ÈËÊý',"+
-		"leType.type as 'ÍÆ¹ãÀàÐÍ'"+"from wx_particular wp INNER JOIN le_type leType on leType.letype_id=wp.leType_id";
+		String sql="SELECT DISTINCT   wp.EventKey as 'ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½',wp.`name` as 'ï¿½ï¿½ï¿½ï¿½',"+
+		"(select count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey and we.state=1 and wu.subscribe_time>=CURDATE()) as 'ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½',"+
+		" (SELECT count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey ) as 'ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½×¢ï¿½ï¿½ï¿½ï¿½',"+
+		" (select count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey and we.state=1 and wu.subscribe_time>=date_sub(now(),interval 7 day)) as 'Ò»ï¿½ï¿½ï¿½Ú¹ï¿½×¢ï¿½ï¿½ï¿½ï¿½',"+
+		"(select count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey and we.state=1 and wu.subscribe_time>=date_sub(now(),interval 30 day)) as 'Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½×¢ï¿½ï¿½ï¿½ï¿½',"+
+		"leType.type as 'ï¿½Æ¹ï¿½ï¿½ï¿½ï¿½ï¿½'"+"from wx_particular wp INNER JOIN le_type leType on leType.letype_id=wp.leType_id";
 		List<Object[]> list = session.createSQLQuery(sql).list();
 		System.out.println("test");
 		for (Object[] objects : list) {
