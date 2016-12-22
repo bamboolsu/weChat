@@ -3,7 +3,7 @@ package com.le.controller;
 
 import java.util.Date;
 import java.util.Map;
-
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,10 +35,10 @@ public class EventDispatcher implements IEventDispatcher{
       	textMess.setCreateTime(new Date().getTime());
         if (map.get("Event").equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) { //关注事件
         	
-        	/*Set<String> keys = map.keySet();
+        	Set<String> keys = map.keySet();
         	for (String key : keys) {
-				System.out.println(key);
-			}*/
+				System.out.println("========key======"+key+"=======valuse======="+map.get(key));
+			}
         	
             String date = DateUtil.TimeStampDate(map.get("CreateTime"),"yyyy-MM-dd HH:mm:ss");
             map.put("CreateTime", date);

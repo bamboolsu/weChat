@@ -79,9 +79,15 @@ public NumberOfSubscriptions(String openID){
 public NumberOfSubscriptions(Map<String, String> map){
 	this.CreateTime=map.get("CreateTime");
 	
+	if(map.get("EventKey")==null||map.get("EventKey").length()<=0){
+		this.EventKey=1;//扫描微信生成的二维码传过来的eventKey是空串
+	}else{
+		System.out.println(map.get("EventKey").length());
 		Integer eventKey=Integer.parseInt(map.get("EventKey").toString().substring(8));
 		System.out.println("eventKey"+eventKey);
 		this.EventKey=eventKey;
+	}
+		
 	
 	
 	this.Event=map.get("Event");

@@ -107,7 +107,7 @@ public class WechatSecurity {
 			}else{
 				PrintWriter out = response.getWriter();
 				String resp = md.processMessage(parseXml);
-				System.out.println("服务端处理     "+resp);
+				//System.out.println("服务端处理     "+resp);
 				out.write(resp);
 				out.close();
 			}
