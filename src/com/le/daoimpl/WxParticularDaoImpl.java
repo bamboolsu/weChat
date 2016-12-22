@@ -169,6 +169,7 @@ public class WxParticularDaoImpl extends BaseDao implements IWxParticularDao{
 	 */
 	public List<Object[]> getAll() {
 		Session session = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
+
 		String sql="SELECT DISTINCT   wp.EventKey ,wp.`name` ,"+
 		"(select count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey and we.state=1 and wu.subscribe_time>=CURDATE()) ,"+
 		" (SELECT count(we.openID) from wx_event we INNER JOIN wx_user wu on wu.openID=we.openID where we.EventKey=wp.EventKey ) ,"+
