@@ -7,12 +7,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.le.biz.IWxParticularBiz;
+import com.le.bizimpl.NumberOfSubscriptionsBizImpl;
 import com.le.entity.LeType;
 import com.le.entity.WxParticular;
 import com.le.util.DateUtil;
@@ -22,7 +23,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
- * ¶ÔWxParticular£¬LeTypeµÄ²Ù×÷¶¼½«Í¨¹ıÕâ¸ö¿ØÖÆÆ÷
+ * ï¿½ï¿½WxParticular
  * @author ouyangwenting
  *
  */
@@ -33,12 +34,17 @@ public class Statistics {
      
 	@Autowired
 	private IWxParticularBiz iwp;
+	
+	private Logger log=Logger.getLogger(Statistics.class) ;
+	
 	public IWxParticularBiz getIwp() {
 		return iwp;
 	}
 	public void setIwp(IWxParticularBiz iwp) {
 		this.iwp = iwp;
 	}
+	
+	
 	
 	@RequestMapping("/init")
 	public void init(HttpServletRequest req,HttpServletResponse resp,Integer startPage,Integer pageCount,String callback){
@@ -67,7 +73,7 @@ public class Statistics {
 		PrintWriter out=null;
 		try {
 			out = resp.getWriter();
-			//½â¾ö¿çÓòµÄÎÊÌâ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			String crossDomain = WXUserUtil.crossDomain(callback, initWxParticularJson);
 			out.write(crossDomain);
 		} catch (IOException e) {
@@ -82,7 +88,7 @@ public class Statistics {
 	
 	
 	/**
-	 * ÏÂÀ­Ñ¡ÔñÊ±¼äÒì²½´¦ÀíÇëÇó
+	 * ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ì²½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param resp
 	 * @param eventKey
 	 * @param date
@@ -99,7 +105,7 @@ public class Statistics {
 		PrintWriter out=null;
 		try {
 			out = resp.getWriter();
-			//½â¾ö¿çÓòµÄÎÊÌâ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			String crossDomain = WXUserUtil.crossDomain(callback, jsonObj);
 			out.write(crossDomain);
 		} catch (IOException e) {
@@ -114,7 +120,7 @@ public class Statistics {
 	
 	@RequestMapping("initJsp")
 	/**
-	 * ¸øjspÒ³ÃæÓÃµÄÊ×Ò³¼ÓÔØ
+	 * ï¿½ï¿½jspÒ³ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½
 	 * @param req
 	 * @param resp
 	 * @param startPage
@@ -141,7 +147,7 @@ public class Statistics {
 	}
 	
 	/**
-	 * ¸ù¾İId²éÑ¯WxParticular¶ÔÏó
+	 * ï¿½ï¿½ï¿½ï¿½Idï¿½ï¿½Ñ¯WxParticularï¿½ï¿½ï¿½ï¿½
 	 * @param resp
 	 * @param id
 	 */
@@ -161,7 +167,7 @@ public class Statistics {
 		PrintWriter out =null;
 		try {
 			out = resp.getWriter();
-			//½â¾ö¿çÓòµÄÎÊÌâ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			String crossDomain = WXUserUtil.crossDomain(callback, jsonObj);
 			out.write(crossDomain);
 		} catch (IOException e) {
@@ -192,22 +198,22 @@ public class Statistics {
 	
 	@RequestMapping("/add")
 	public void addWxParticular(HttpServletResponse resp,WxParticular wp,String callback){
-		//ÑéÖ¤¶ÔÏóÊı¾İµÄÍêÕûĞÔ£¬ºÏ·¨ĞÔ
+		//ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½Ï·ï¿½ï¿½ï¿½
 		int id = iwp.add(wp);
 		System.out.println(wp);
-		String imageUrl=WXUserUtil.getImageUrl(wp.getEventKey());//¶şÎ¬ÂëÍ¼Æ¬urlµØÖ·
+		String imageUrl=WXUserUtil.getImageUrl(wp.getEventKey());//ï¿½ï¿½Î¬ï¿½ï¿½Í¼Æ¬urlï¿½ï¿½Ö·
 		boolean setImageUrlResult = iwp.setImageUrl(imageUrl, id);
 		PrintWriter out=null;
 		JSONObject resultJson=new JSONObject();
 		if(setImageUrlResult){
 			resultJson.put("result", true);
 		}else{
-			resultJson.put("result", 40001);//¶şÎ¬ÂëÍ¼Æ¬»ñÈ¡Ê§°Ü
+			resultJson.put("result", 40001);//ï¿½ï¿½Î¬ï¿½ï¿½Í¼Æ¬ï¿½ï¿½È¡Ê§ï¿½ï¿½
 		}
 		System.out.println(resultJson.toString());
 		try {
 			out = resp.getWriter();
-			//½â¾ö¿çÓòµÄÎÊÌâ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			String crossDomain = WXUserUtil.crossDomain(callback, resultJson);
 			out.write(crossDomain);
 		   
@@ -221,7 +227,7 @@ public class Statistics {
 	}
 	
 	/**
-	 *¸ù¾İid É¾³ıWxParticular¶ÔÏó
+	 *ï¿½ï¿½ï¿½ï¿½id É¾ï¿½ï¿½WxParticularï¿½ï¿½ï¿½ï¿½
 	 * @param resp
 	 * @param id
 	 */
@@ -247,8 +253,16 @@ public class Statistics {
 	}
 	
 	@RequestMapping("/test")
-	public void test(){
-		iwp.test();
+	public void test(String id){
+		int i=0;
+		log.info("id   "+id);
+		log.info("i   "+i);
+		try {
+			int a=5/i;
+		} catch (ArithmeticException e) {
+			log.error("è¿ç®—é”™è¯¯",e);
+			// TODO: handle exception
+		}
 	}
 	
 	@RequestMapping("/find")
@@ -264,7 +278,7 @@ public class Statistics {
 	}
 	
 	/**
-	 * ²éÑ¯ËùÓĞÍ³¼ÆĞÅÏ¢Ïà¹ØµÄÊı¾İ
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½Í³ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param req
 	 * @return
 	 */
@@ -280,7 +294,7 @@ public class Statistics {
 		json.put("allMess", jsonArr);
 		json.put("result", 1);
 		System.out.println(json);
-		//½â¾ö¿çÓòÎÊÌâ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String crossDomain = WXUserUtil.crossDomain(callback, json);
 		PrintWriter out=null;
 		try {
