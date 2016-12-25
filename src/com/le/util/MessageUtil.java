@@ -15,6 +15,8 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import com.le.wechat.entity.ImageMessage;
+import com.le.wechat.entity.ImageNews;
+import com.le.wechat.entity.ImageNewsDetail;
 import com.le.wechat.entity.TextMessage;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
@@ -236,5 +238,17 @@ public class MessageUtil {
             };
         }
     });
+    
+    /**
+     * 图文消息转xml
+     * @param imageNews
+     * @return
+     */
+    public static String ImageNewsToXml(ImageNews imageNews){
+    	XStream xStream=new XStream();
+    	xStream.alias("xml", imageNews.getClass());
+    	xStream.alias("item", new ImageNewsDetail().getClass());
+    	return xStream.toXML(imageNews);
+    }
     
 }
