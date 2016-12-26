@@ -89,13 +89,14 @@ public class WechatSecurity {
 			response.setCharacterEncoding("utf-8");
 			String msgType = parseXml.get("MsgType");
 			String  event=parseXml.get("Event");
-			 
+			 //System.out.println("msgType   "+msgType);
+			 //System.out.println("event   "+event);
 			if(MessageUtil.REQ_MESSAGE_TYPE_EVENT.equals(msgType)){
 				PrintWriter out = response.getWriter();
 				String resp=ed.processEvent(parseXml);
 				
 				//String xml = DateUtil.c(resp);
-				System.out.println("服务端处理     "+resp);
+				//System.out.println("服务端处理     "+resp);
 				if("unsubscribe".equals(event)){//取消关注事件则返回空串给微信服务器
 					out.write("");
 					out.close();

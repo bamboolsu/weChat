@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.le.icontroller.IMessageDispatcher;
 import com.le.util.MessageUtil;
+import com.le.wechat.entity.ImageMessage;
 import com.le.wechat.entity.ImageNews;
 import com.le.wechat.entity.ImageNewsDetail;
 import com.le.wechat.entity.TextMessage;
@@ -32,43 +33,49 @@ public class MsgDispatcher implements IMessageDispatcher{
       	
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // �ı���Ϣ
            // System.out.println("文字回复");
-            //Set<String> keySet = map.keySet();
-            /*for (String string : keySet) {
+            Set<String> keySet = map.keySet();
+            for (String string : keySet) {
 				System.out.println("key    "+string+"    value    "+map.get(string));
-			}*/
+			}
         	String content = map.get("Content");
-        	if("图文消息".equals(content)){
-        		ImageNews imageNews=new ImageNews();
-        		imageNews.setFromUserName(mpid);
-        		imageNews.setToUserName(openid);
-        		imageNews.setCreateTime(new Date().getTime());
-        		imageNews.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
-        		List<ImageNewsDetail> details=new ArrayList<ImageNewsDetail>();
-        		ImageNewsDetail detail=new ImageNewsDetail();
-        		detail.setTitle("这是我的第一个图文消息");
-        		detail.setDescription("这个内容很精彩");
-        		detail.setPicUrl("http://oywtwechattest.nat123.net/WeChat/image/test.jpg");
-        		detail.setUrl("http://ouyangwenting.com/");
-        		details.add(detail);
-        		ImageNewsDetail detail2=new ImageNewsDetail();
-        		detail2.setTitle("第二条图文消息");
-        		detail2.setDescription("这个内容很精彩");
-        		detail2.setPicUrl("http://oywtwechattest.nat123.net/WeChat/image/test2.jpg");
-        		detail2.setUrl("http://ouyangwenting.com/");
-        		details.add(detail2);
-        		imageNews.setArticles(details);
-        		imageNews.setArticleCount(details.size());
-        		String imageNewsToXml = MessageUtil.ImageNewsToXml(imageNews);
-        		return imageNewsToXml;
+        	if("交易规则".equals(content)){
+        		System.out.println("交易规则");
+        		ImageMessage imageMess=new ImageMessage();
+        		imageMess.setFromUserName(mpid);
+        		imageMess.setToUserName(openid);
+      		  imageMess.setCreateTime(new Date().getTime());
+      		  imageMess.setMsgType(MessageUtil.REQ_MESSAGE_TYPE_IMAGE);
+      		  imageMess.setMediaId("o7rUNxOkEVRFTpGSSvOhZGF1s6Qdg6Y-GPCljY31YKVkc-oTQZ-ak7NM0-b_hu7J");
+      		  String imageMessageToXml = MessageUtil.imageMessToXml(imageMess);
+      		  System.out.println(imageMessageToXml);
+      		  return imageMessageToXml;
+        	}else if(content!=null&&content.contains("经纪人")){
+        		  ImageMessage imageMess=new ImageMessage();
+        		  imageMess.setFromUserName(mpid);
+          		imageMess.setToUserName(openid);
+        		  imageMess.setCreateTime(new Date().getTime());
+        		  imageMess.setMsgType(MessageUtil.REQ_MESSAGE_TYPE_IMAGE);
+        		  imageMess.setMediaId("4FWmAGkGDD6jbbxorEubDJphk2QblwVmOhjS9iCfpzF98UZdCs3ykJqqNsFGm8pe");
+        		  String imageMessageToXml = MessageUtil.imageMessToXml(imageMess);
+        		  return imageMessageToXml;
+        	}else if(content!=null&&content.contains("现金券使用规则")){
+        		TextMessage textMessage=new TextMessage();
+        		textMessage.setFromUserName(mpid);
+        		textMessage.setToUserName(openid);
+        		textMessage.setCreateTime(new Date().getTime());
+        		textMessage.setMsgType(MessageUtil.REQ_MESSAGE_TYPE_TEXT);
+        		textMessage.setContent("注册即送100元现金券，现金券可用于“乐交易”进行使用\n2，现金券在“乐交易”-“交易首页右下角?设置”-“我的礼券”中领取\n3，100元现金券将分为10个交易日发放，每张现金券的使用日期为当天，过期作废\n4，对于现金券使用的一切解释权归上海乐玑信息科技有限公司所有\n5，其他疑问请留言，乐积分客服将竭诚为您解答");
+        		String textMessageToXml = MessageUtil.textMessageToXml(textMessage);
+        		return textMessageToXml;
         	}else{
-        		  TextMessage textMess=new TextMessage();
-                	textMess.setFromUserName(mpid);
-                	textMess.setToUserName(openid);
-                	textMess.setCreateTime(new Date().getTime());
-              	textMess.setMsgType(MessageUtil.REQ_MESSAGE_TYPE_TEXT);
-              	textMess.setContent("您好，乐积分客服已经上线啦，有任何关于“乐积分”“乐交易”的问题都可以通过添加乐积分客服微信：17317200971 进行咨询哦！\n在左下角“乐交易”中完成注册，就可以在交易首页的右下角“设置”-“我的礼券”中领取现金券啦\n回复“交易规则”查看交易方法，\n回复“使用规则”查看现金券使用规则，\n回复“经纪人”查看“秒变经纪人”方法");
-              	String textMessageToXml = MessageUtil.textMessageToXml(textMess);
-                  return textMessageToXml;
+        		TextMessage textMess=new TextMessage();
+            	textMess.setFromUserName(mpid);
+            	textMess.setToUserName(openid);
+            	textMess.setCreateTime(new Date().getTime());
+          	textMess.setMsgType(MessageUtil.REQ_MESSAGE_TYPE_TEXT);
+          	textMess.setContent("您好，乐积分客服已经上线啦，有任何关于“乐积分”“乐交易”的问题都可以通过添加乐积分客服微信：17317200971 进行咨询哦！\n在左下角“乐交易”中完成注册，就可以在交易首页的右下角“设置”-“我的礼券”中领取现金券啦\n回复“交易规则”查看交易方法，\n回复“使用规则”查看现金券使用规则，\n回复“经纪人”查看“秒变经纪人”方法");
+          	String textMessageToXml = MessageUtil.textMessageToXml(textMess);
+              return textMessageToXml;
         	}
           
         }

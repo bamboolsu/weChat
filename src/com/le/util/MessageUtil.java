@@ -183,6 +183,15 @@ public class MessageUtil {
         return xstream.toXML(textMessage);
     }
     
+    /**
+     * 图片消息转xml
+     * @param imageMess
+     * @return
+     */
+    public static String imageMessToXml(ImageMessage imageMess){
+    	xstream.alias("xml", imageMess.getClass());
+    	 return xstream.toXML(imageMess);
+    }
     
     /**
      * @Description: 图文消息对象转换成 xml
