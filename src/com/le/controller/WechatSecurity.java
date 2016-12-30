@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.le.icontroller.IEventDispatcher;
 import com.le.icontroller.IMessageDispatcher;
 import com.le.util.DateUtil;
+import com.le.util.MenuUtil;
 import com.le.util.MessageUtil;
 import com.le.util.Signature;
 
@@ -83,7 +84,7 @@ public class WechatSecurity {
 	
 	@RequestMapping(value="security",method=RequestMethod.POST)
 	public void doPost(HttpServletRequest request,HttpServletResponse response){
-
+     MenuUtil.createMenu();
 		try {
 			Map<String, String> parseXml = MessageUtil.parseXml(request);
 			response.setCharacterEncoding("utf-8");
