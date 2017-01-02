@@ -1,19 +1,21 @@
 package com.le.wechat.quartz;
 
+import com.le.util.MenuUtil;
 import com.le.wechat.common.WeChatTask;
 import org.apache.log4j.Logger;
 public class QuartzJob {
 	private static Logger logger = Logger.getLogger(QuartzJob.class);
 	/**
-     * @Description: ÈÎÎñÖ´ÐÐ»ñÈ¡ token
+     * @Description: ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð»ï¿½È¡ token
      * @param    
      * @author dapengniao
-     * @date 2016 Äê 3 ÔÂ 10 ÈÕ ÏÂÎç 4:34:26
+     * @date 2016 ï¿½ï¿½ 3 ï¿½ï¿½ 10 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 4:34:26
      */
     public void workForToken() {
         try {
             WeChatTask timer = new WeChatTask();
             timer.getToken_getTicket();
+            MenuUtil.createMenu();
         } catch (Exception e) {
         	e.printStackTrace();
         	 logger.error(e, e);

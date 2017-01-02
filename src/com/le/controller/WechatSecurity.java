@@ -84,7 +84,6 @@ public class WechatSecurity {
 	
 	@RequestMapping(value="security",method=RequestMethod.POST)
 	public void doPost(HttpServletRequest request,HttpServletResponse response){
-     MenuUtil.createMenu();
 		try {
 			Map<String, String> parseXml = MessageUtil.parseXml(request);
 			response.setCharacterEncoding("utf-8");
