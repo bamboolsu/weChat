@@ -7,6 +7,19 @@
 <meta name=”viewport” content=”width=device-width, initial-scale=1″ />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<script type="text/javascript">
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+
+function get() {
+	//调用方法
+	alert("openid     is "+GetQueryString("openid"));
+}
+</script>
 </head>
 <body>
    <a href="https://www.baidu.com">去百度</a>
@@ -19,8 +32,9 @@
         </tr>
          <tr>
            <td>${openid }</td>
-           <td>${access_token}</td>
+           <td><input type="button" onclick="get();" value="点我获取openId"></td>
            <td>${refresh_token}</td>
+           <td></td>
         </tr>
     </table>
 </body>

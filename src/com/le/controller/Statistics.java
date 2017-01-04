@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.le.biz.IWxParticularBiz;
 import com.le.bizimpl.NumberOfSubscriptionsBizImpl;
@@ -300,7 +301,7 @@ public class Statistics {
 	}
 	
 	@RequestMapping("/snsapiBase")
-	public String snsapiBase(HttpServletRequest req,HttpServletResponse resp,String code,String state) throws Exception{
+	public ModelAndView snsapiBase(HttpServletRequest req,HttpServletResponse resp,String code,String state) throws Exception{
 		System.out.println(code);
 		System.out.println(state);
 		String url="https://api.weixin.qq.com/sns/oauth2/access_token";
@@ -310,10 +311,10 @@ public class Statistics {
 		params.put("code", code);
 		params.put("grant_type", "authorization_code");
 		String sendPost = HttpUtils.sendPost(url, params);
-		JSONObject jsonObj=JSONObject.fromObject(sendPost);
+		JSONObject jsonObj=JSONObject.fromObject(sendPost);//微信服务器响应的json字符串
 		req.setAttribute("openid", jsonObj.get("openid"));
-		req.setAttribute("access_token", jsonObj.get("access_token"));
-		req.setAttribute("refresh_token", jsonObj.get("refresh_token"));
-		return "test";
+		
+		return new ModelAndView("redirect:/test.jsp?openid="+jsonObj.get("openid"));
+		
 	}
 }
