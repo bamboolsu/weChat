@@ -2,7 +2,9 @@ package com.le.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +19,10 @@ import com.le.bizimpl.NumberOfSubscriptionsBizImpl;
 import com.le.entity.LeType;
 import com.le.entity.WxParticular;
 import com.le.util.DateUtil;
+import com.le.util.GlobalConstants;
+import com.le.util.HttpUtils;
 import com.le.util.WXUserUtil;
+
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -198,7 +203,7 @@ public class Statistics {
 	
 	@RequestMapping("/add")
 	public void addWxParticular(HttpServletResponse resp,WxParticular wp,String callback){
-		//��֤�������ݵ������ԣ��Ϸ���
+		//添加WxParticular对象
 		int id = iwp.add(wp);
 		System.out.println(wp);
 		String imageUrl=WXUserUtil.getImageUrl(wp.getEventKey());//��ά��ͼƬurl��ַ
@@ -208,12 +213,12 @@ public class Statistics {
 		if(setImageUrlResult){
 			resultJson.put("result", true);
 		}else{
-			resultJson.put("result", 40001);//��ά��ͼƬ��ȡʧ��
+			resultJson.put("result", 40001);//二维码删除失败
 		}
 		System.out.println(resultJson.toString());
 		try {
 			out = resp.getWriter();
-			//������������
+			
 			String crossDomain = WXUserUtil.crossDomain(callback, resultJson);
 			out.write(crossDomain);
 		   
@@ -227,7 +232,7 @@ public class Statistics {
 	}
 	
 	/**
-	 *����id ɾ��WxParticular����
+	 *根据id删除一个WxParticular
 	 * @param resp
 	 * @param id
 	 */
@@ -252,18 +257,6 @@ public class Statistics {
 		}
 	}
 	
-	@RequestMapping("/test")
-	public void test(String id){
-		int i=0;
-		log.info("id   "+id);
-		log.info("i   "+i);
-		try {
-			int a=5/i;
-		} catch (ArithmeticException e) {
-			log.error("运算错误",e);
-			// TODO: handle exception
-		}
-	}
 	
 	@RequestMapping("/find")
 	public String  findByEventKey(HttpServletRequest req,Integer eventKey,Integer date){
@@ -278,7 +271,7 @@ public class Statistics {
 	}
 	
 	/**
-	 * ��ѯ����ͳ����Ϣ��ص�����
+	 * 查询所有的推广
 	 * @param req
 	 * @return
 	 */
@@ -293,8 +286,6 @@ public class Statistics {
 		JSONObject json=new JSONObject();
 		json.put("allMess", jsonArr);
 		json.put("result", 1);
-		System.out.println(json);
-		//�����������
 		String crossDomain = WXUserUtil.crossDomain(callback, json);
 		PrintWriter out=null;
 		try {
@@ -306,5 +297,23 @@ public class Statistics {
 		}finally {
 			out.close();
 		}
+	}
+	
+	@RequestMapping("/snsapiBase")
+	public String snsapiBase(HttpServletRequest req,HttpServletResponse resp,String code,String state) throws Exception{
+		System.out.println(code);
+		System.out.println(state);
+		String url="https://api.weixin.qq.com/sns/oauth2/access_token";
+		Map<String, String> params=new HashMap<String, String>();
+		params.put("appid", (String) GlobalConstants.interfaceUrlProperties.get("appid"));
+		params.put("secret", (String) GlobalConstants.interfaceUrlProperties.get("appsecret"));
+		params.put("code", code);
+		params.put("grant_type", "authorization_code");
+		String sendPost = HttpUtils.sendPost(url, params);
+		JSONObject jsonObj=JSONObject.fromObject(sendPost);
+		req.setAttribute("openid", jsonObj.get("openid"));
+		req.setAttribute("access_token", jsonObj.get("access_token"));
+		req.setAttribute("refresh_token", jsonObj.get("refresh_token"));
+		return "test";
 	}
 }

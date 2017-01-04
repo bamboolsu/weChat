@@ -93,7 +93,7 @@ public class WechatSecurity {
 			 //System.out.println("event   "+event);
 			if(MessageUtil.REQ_MESSAGE_TYPE_EVENT.equals(msgType)){
 				PrintWriter out = response.getWriter();
-				String resp=ed.processEvent(parseXml);
+				String resp=ed.processEvent(parseXml,request,response);
 				
 				//String xml = DateUtil.c(resp);
 				//System.out.println("服务端处理     "+resp);

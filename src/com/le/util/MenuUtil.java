@@ -29,18 +29,15 @@ public class MenuUtil {
 	  */
 	    public static String createMenu() throws ClientProtocolException, IOException {
              Menu menu=new Menu();
-             
-             //Button button=new Button();
-            // button.setName("主菜单");
             ViewButton viewButton=new ViewButton();
             viewButton.setName("欧阳文霆的博客");
             viewButton.setType("view");
-            viewButton.setUrl("http://ouyangwenting.com/");
+            viewButton.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx234a559f20c403ed&redirect_uri=http://oywt.tunnel.qydev.com/WeChat/st/snsapiBase&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
             
             ViewButton viewButton2=new ViewButton();
             viewButton2.setName("去百度");
             viewButton2.setType("view");
-            viewButton2.setUrl("https://www.baidu.com/");
+            viewButton2.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx234a559f20c403ed&redirect_uri=http://oywt.tunnel.qydev.com/WeChat/st/snsapiBase&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect");
             
             ClickButton clickButton=new ClickButton();
             clickButton.setKey("clicl_oywtTest");
@@ -48,16 +45,13 @@ public class MenuUtil {
             clickButton.setType("click");
             
             ViewButton viewButton3=new ViewButton();
-            viewButton3.setName("去百度");
+            viewButton3.setName("授权");
             viewButton3.setType("view");
-            viewButton3.setUrl("https://www.baidu.com/");
+            viewButton3.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx234a559f20c403ed&redirect_uri=http%3a%2f%2foywt.tunnel.qydev.com%2fWeChat%2fst%2fsnsapiBase&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
             
             Button button=new Button();
             button.setName("主菜单");
             button.setSub_button(new Button[]{viewButton3,viewButton});
-            //button.setType("click");
-           // button.setSub_button(buttons);
-           // Button[] menus={button};
             menu.setButton(new Button[]{clickButton,button});
             JSONObject menuJosn=JSONObject.fromObject(menu);
             System.out.println(menuJosn);
@@ -65,7 +59,6 @@ public class MenuUtil {
             createMenuUrl=createMenuUrl+"?access_token="+(String) GlobalConstants.interfaceUrlProperties.get("access_token");
             String sendPostBuffer = HttpUtils.sendPostBuffer(createMenuUrl, menuJosn.toString());
             JSONObject resultMess=JSONObject.fromObject(sendPostBuffer);
-            System.out.println(resultMess);
 	    	return "";
 	   }
 }

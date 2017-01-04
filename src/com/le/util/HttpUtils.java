@@ -31,7 +31,7 @@ import org.apache.http.util.EntityUtils;
 
 public class HttpUtils {
 	/**
-	 * »ñÈ¡·þÎñÆ÷ÏìÓ¦µÄÊäÈëÁ÷
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param reqUrl
 	 * @param params
 	 * @return
@@ -54,13 +54,13 @@ public class HttpUtils {
 	        
 	}
 	/**
-     * @Description: http get ÇëÇó¹²ÓÃ·½·¨
+     * @Description: http get ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½
      * @param @param reqUrl
      * @param @param params
      * @param @return
      * @param @throws Exception
      * @author dapengniao
-     * @date 2016 Äê 3 ÔÂ 10 ÈÕ ÏÂÎç 3:57:39
+     * @date 2016 ï¿½ï¿½ 3 ï¿½ï¿½ 10 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 3:57:39
      */
     @SuppressWarnings("resource")
     public static String sendGet(String reqUrl, Map<String, String> params)
@@ -84,13 +84,13 @@ public class HttpUtils {
     }
     
     /**
-     * @Description: http post ÇëÇó¹²ÓÃ·½·¨
+     * @Description: http post ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½
      * @param @param reqUrl
      * @param @param params
      * @param @return
      * @param @throws Exception
      * @author dapengniao
-     * @date 2016 Äê 3 ÔÂ 10 ÈÕ ÏÂÎç 3:57:53
+     * @date 2016 ï¿½ï¿½ 3 ï¿½ï¿½ 10 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 3:57:53
      */
     @SuppressWarnings("resource")
     public static String sendPost(String reqUrl, Map<String, String> params)
@@ -121,27 +121,27 @@ public class HttpUtils {
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    throw new Exception("ÍøÂçÁ¬½ÓÊ§°Ü,ÇëÁ¬½ÓÍøÂçºóÔÙÊÔ");
+                    throw new Exception("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                 }
             } else {
-                throw new Exception("²ÎÊý²»È«£¬ÇëÉÔºóÖØÊÔ");
+                throw new Exception("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½ï¿½ï¿½");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            throw new Exception("·¢ËÍÎ´ÖªÒì³£");
+            throw new Exception("ï¿½ï¿½ï¿½ï¿½Î´Öªï¿½ì³£");
         }
     }
      
     
     /**
-     * @Description: http post ÇëÇó json Êý¾Ý
+     * @Description: http post ï¿½ï¿½ï¿½ï¿½ json ï¿½ï¿½ï¿½ï¿½
      * @param @param urls
      * @param @param params
      * @param @return
      * @param @throws ClientProtocolException
      * @param @throws IOException
      * @author dapengniao
-     * @date 2016 Äê 3 ÔÂ 10 ÈÕ ÏÂÎç 3:58:15
+     * @date 2016 ï¿½ï¿½ 3 ï¿½ï¿½ 10 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 3:58:15
      */
     public static String sendPostBuffer(String urls, String params)
             throws ClientProtocolException, IOException {
@@ -149,10 +149,10 @@ public class HttpUtils {
 
         StringEntity se = new StringEntity(params, HTTP.UTF_8);
         request.setEntity(se);
-        // ·¢ËÍÇëÇó
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         @SuppressWarnings("resource")
         HttpResponse httpResponse = new DefaultHttpClient().execute(request);
-        // µÃµ½Ó¦´ðµÄ×Ö·û´®£¬ÕâÒ²ÊÇÒ»¸ö JSON ¸ñÊ½±£´æµÄÊý¾Ý
+        // ï¿½Ãµï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½Ò»ï¿½ï¿½ JSON ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         String retSrc = EntityUtils.toString(httpResponse.getEntity());
         request.releaseConnection();
         return retSrc;
@@ -160,15 +160,15 @@ public class HttpUtils {
     }
     
     /**
-     * @Description: http ÇëÇó·¢ËÍ xml ÄÚÈÝ
+     * @Description: http ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xml ï¿½ï¿½ï¿½ï¿½
      * @param @param urlStr
      * @param @param xmlInfo
      * @param @return
      * @author dapengniao
-     * @date 2016 Äê 3 ÔÂ 10 ÈÕ ÏÂÎç 3:58:32
+     * @date 2016 ï¿½ï¿½ 3 ï¿½ï¿½ 10 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 3:58:32
      */
     public static String sendXmlPost(String urlStr, String xmlInfo) {
-        // xmlInfo xml ¾ßÌå×Ö·û´®
+        // xmlInfo xml ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 
         try {
             URL url = new URL(urlStr);
@@ -189,7 +189,7 @@ public class HttpUtils {
                     .readLine()) {
                 lines = lines + line;
             }
-            return lines; // ·µ»ØÇëÇó½á¹û
+            return lines; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -204,14 +204,14 @@ public class HttpUtils {
         try {
             BufferedInputStream bis = new BufferedInputStream(is);
             bis.mark(2);
-            // È¡Ç°Á½¸ö×Ö½Ú
+            // È¡Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½
             byte[] header = new byte[2];
             int result = bis.read(header);
-            // reset ÊäÈëÁ÷µ½¿ªÊ¼Î»ÖÃ
+            // reset ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
             bis.reset();
-            // ÅÐ¶ÏÊÇ·ñÊÇ GZIP ¸ñÊ½
+            // ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ GZIP ï¿½ï¿½Ê½
             int headerData = getShort(header);
-            // Gzip Á÷ µÄÇ°Á½¸ö×Ö½ÚÊÇ 0x1f8b
+            // Gzip ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ 0x1f8b
             if (result != -1 && headerData == 0x1f8b) {
                 // LogUtil.i("HttpTask", " use GZIPInputStream  ");
                 is = new GZIPInputStream(bis);
@@ -241,13 +241,13 @@ public class HttpUtils {
     }
 
     /**
-     * ¹¹½¨ get ·½Ê½µÄ url
+     * ï¿½ï¿½ï¿½ï¿½ get ï¿½ï¿½Ê½ï¿½ï¿½ url
      * 
      * @param reqUrl
-     *            »ù´¡µÄ url µØÖ·
+     *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ url ï¿½ï¿½Ö·
      * @param params
-     *            ²éÑ¯²ÎÊý
-     * @return ¹¹½¨ºÃµÄ url
+     *            ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
+     * @return ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ url
      */
     public static String buildUrl(String reqUrl, Map<String, String> params) {
         StringBuilder query = new StringBuilder();

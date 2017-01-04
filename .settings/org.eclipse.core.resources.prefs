@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebContent/test.jsp=UTF-8
 encoding//src/com/le/biz/INumberOfSubscriptionsBiz.java=UTF-8
 encoding//src/com/le/biz/IWxParticularBiz.java=UTF-8
 encoding//src/com/le/bizimpl/NumberOfSubscriptionsBizImpl.java=UTF-8
@@ -27,6 +28,7 @@ encoding//src/com/le/util/DateUtil.java=UTF-8
 encoding//src/com/le/util/EcodeFilter.java=UTF-8
 encoding//src/com/le/util/GlobalConstants.java=UTF-8
 encoding//src/com/le/util/HttpUtils.java=UTF-8
+encoding//src/com/le/util/MenuUtil.java=UTF-8
 encoding//src/com/le/util/MessageUtil.java=UTF-8
 encoding//src/com/le/util/Signature.java=UTF-8
 encoding//src/com/le/util/WXUserUtil.java=UTF-8
