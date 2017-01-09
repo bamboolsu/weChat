@@ -111,7 +111,7 @@ public class Statistics {
 		PrintWriter out=null;
 		try {
 			out = resp.getWriter();
-			//������������
+			
 			String crossDomain = WXUserUtil.crossDomain(callback, jsonObj);
 			out.write(crossDomain);
 		} catch (IOException e) {
@@ -153,7 +153,7 @@ public class Statistics {
 	}
 	
 	/**
-	 * ����Id��ѯWxParticular����
+	 * 
 	 * @param resp
 	 * @param id
 	 */
@@ -173,7 +173,7 @@ public class Statistics {
 		PrintWriter out =null;
 		try {
 			out = resp.getWriter();
-			//������������
+			
 			String crossDomain = WXUserUtil.crossDomain(callback, jsonObj);
 			out.write(crossDomain);
 		} catch (IOException e) {
@@ -214,7 +214,7 @@ public class Statistics {
 		if(setImageUrlResult){
 			resultJson.put("result", true);
 		}else{
-			resultJson.put("result", 40001);//二维码删除失败
+			resultJson.put("result", 40001);//二维码生成失败
 		}
 		System.out.println(resultJson.toString());
 		try {
@@ -314,7 +314,7 @@ public class Statistics {
 		JSONObject jsonObj=JSONObject.fromObject(sendPost);//微信服务器响应的json字符串
 		req.setAttribute("openid", jsonObj.get("openid"));
 		
-		return new ModelAndView("redirect:/test.jsp?openid="+jsonObj.get("openid"));
+		return new ModelAndView("redirect:http://116.228.152.190:666/view/buy/buy.html?openid="+jsonObj.get("openid"));//修改为服务器端支付页面url
 		
 	}
 }
