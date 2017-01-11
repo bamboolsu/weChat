@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.le.biz.IWxParticularBiz;
-import com.le.bizimpl.NumberOfSubscriptionsBizImpl;
+
 import com.le.entity.LeType;
 import com.le.entity.WxParticular;
 import com.le.util.DateUtil;
@@ -302,6 +302,7 @@ public class Statistics {
 	
 	@RequestMapping("/snsapiBase")
 	public ModelAndView snsapiBase(HttpServletRequest req,HttpServletResponse resp,String code,String state) throws Exception{
+		//state参数的value请在interface_url.properties中配置
 		System.out.println(code);
 		System.out.println(state);
 		String url="https://api.weixin.qq.com/sns/oauth2/access_token";
@@ -312,9 +313,9 @@ public class Statistics {
 		params.put("grant_type", "authorization_code");
 		String sendPost = HttpUtils.sendPost(url, params);
 		JSONObject jsonObj=JSONObject.fromObject(sendPost);//微信服务器响应的json字符串
-		req.setAttribute("openid", jsonObj.get("openid"));
-		
-		return new ModelAndView("redirect:http://116.228.152.190:666/view/buy/buy.html?openid="+jsonObj.get("openid"));//修改为服务器端支付页面url
+		String redirectUrl=GlobalConstants.getInterfaceUrl(state)+"?openid="+jsonObj.get("openid");
+		System.out.println("redirectUrl  is  "+redirectUrl);
+		return new ModelAndView("redirect:"+redirectUrl);//修改为服务器端支付页面url
 		
 	}
 }

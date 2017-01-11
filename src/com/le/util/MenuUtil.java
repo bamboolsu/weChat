@@ -4,12 +4,7 @@ package com.le.util;
 
 import org.apache.http.client.ClientProtocolException;
 
-import com.wechat.menu.Button;
-import com.wechat.menu.ClickButton;
-import com.wechat.menu.Menu;
-import com.wechat.menu.ViewButton;
 
-import net.sf.json.JSONObject;
 
 import java.io.IOException;
 
@@ -28,7 +23,7 @@ public class MenuUtil {
 	 * @throws
 	  */
 	    public static void createMenu() throws ClientProtocolException, IOException {
-            
+	    	 
 	    	
 	   }
 }

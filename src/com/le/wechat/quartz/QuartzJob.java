@@ -15,7 +15,6 @@ public class QuartzJob {
         try {
             WeChatTask timer = new WeChatTask();
             timer.getToken_getTicket();
-            //MenuUtil.createMenu();
         } catch (Exception e) {
         	e.printStackTrace();
         	 logger.error(e, e);
