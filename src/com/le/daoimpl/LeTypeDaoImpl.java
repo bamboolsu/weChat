@@ -8,7 +8,7 @@ import com.le.dao.ILeTypeDao;
 import com.le.entity.LeType;
 import com.le.entity.WxParticular;
 /**
- * LeType±íµÄÔöÉ¾²é¸Ä
+ * LeType
  * @author ouyangwenting
  *
  */
@@ -19,24 +19,24 @@ public class LeTypeDaoImpl extends BaseDao implements ILeTypeDao{
 		// TODO Auto-generated method stub
 		try {
 			this.getHibernateTemplate().save(leType);
-			return 0;//ÐÂÔö³É¹¦
+			return 0;//ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½
 		} catch (RuntimeException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return -1;//ÐÂÔöÊ§°Ü
+		return -1;//ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
 	}
 
 	public int deleteById(int id) {
 		// TODO Auto-generated method stub
 		try {
 			this.getHibernateTemplate().delete(this.getHibernateTemplate().get(WxParticular.class,new Long(id)));
-			return 0;//É¾³ý³É¹¦
+			return 0;//É¾ï¿½ï¿½ï¿½É¹ï¿½
 		} catch (RuntimeException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return -1;//É¾³ýÊ§°Ü
+		return -1;//É¾ï¿½ï¿½Ê§ï¿½ï¿½
 	}
 
 	public int updateById(int id) {

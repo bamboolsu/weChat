@@ -1,5 +1,9 @@
 package com.le.controller;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -79,7 +83,7 @@ public class Statistics {
 		PrintWriter out=null;
 		try {
 			out = resp.getWriter();
-			//������������
+			//解决跨域
 			String crossDomain = WXUserUtil.crossDomain(callback, initWxParticularJson);
 			out.write(crossDomain);
 		} catch (IOException e) {
@@ -94,7 +98,7 @@ public class Statistics {
 	
 	
 	/**
-	 * ����ѡ��ʱ���첽��������
+	 * 根据实际查询关注人数
 	 * @param resp
 	 * @param eventKey
 	 * @param date
@@ -126,7 +130,7 @@ public class Statistics {
 	
 	@RequestMapping("initJsp")
 	/**
-	 * ��jspҳ���õ���ҳ����
+	 * 页面显示数据，已废弃
 	 * @param req
 	 * @param resp
 	 * @param startPage
@@ -300,6 +304,15 @@ public class Statistics {
 		}
 	}
 	
+	/**
+	 *用户授权成功 跳转到购买页面
+	 * @param req
+	 * @param resp
+	 * @param code
+	 * @param state
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/snsapiBase")
 	public ModelAndView snsapiBase(HttpServletRequest req,HttpServletResponse resp,String code,String state) throws Exception{
 		//state参数的value请在interface_url.properties中配置
@@ -318,4 +331,6 @@ public class Statistics {
 		return new ModelAndView("redirect:"+redirectUrl);//修改为服务器端支付页面url
 		
 	}
+	
+	
 }

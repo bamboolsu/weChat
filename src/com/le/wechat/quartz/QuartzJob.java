@@ -1,5 +1,6 @@
 package com.le.wechat.quartz;
 
+
 import com.le.util.MenuUtil;
 import com.le.wechat.common.WeChatTask;
 import org.apache.log4j.Logger;
@@ -15,6 +16,7 @@ public class QuartzJob {
         try {
             WeChatTask timer = new WeChatTask();
             timer.getToken_getTicket();
+            MenuUtil.createMenu();
         } catch (Exception e) {
         	e.printStackTrace();
         	 logger.error(e, e);

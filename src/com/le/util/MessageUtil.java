@@ -10,7 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
+
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
@@ -32,102 +32,100 @@ import com.thoughtworks.xstream.io.xml.XppDriver;
  */
 public class MessageUtil {
 	/** 
-     * ������Ϣ���ͣ��ı� 
+     * 文字
      */  
     public static final String RESP_MESSAGE_TYPE_TEXT = "text";  
 
     /** 
-     * ������Ϣ���ͣ����� 
+     * 音乐
      */  
     public static final String RESP_MESSAGE_TYPE_MUSIC = "music";  
 
     /** 
-     * ������Ϣ���ͣ�ͼ�� 
+     * 消息
      */  
     public static final String RESP_MESSAGE_TYPE_NEWS = "news";  
 
-    /** 
-     * ������Ϣ���ͣ��ı� 
-     */  
+    
     public static final String REQ_MESSAGE_TYPE_TEXT = "text";  
 
     /** 
-     * ������Ϣ���ͣ�ͼƬ 
+     * 图片
      */  
     public static final String REQ_MESSAGE_TYPE_IMAGE = "image";  
 
     /** 
-     * ������Ϣ���ͣ����� 
+     *链接
      */  
     public static final String REQ_MESSAGE_TYPE_LINK = "link";  
 
     /** 
-     * ������Ϣ���ͣ�����λ�� 
+     * 位置事件
      */  
     public static final String REQ_MESSAGE_TYPE_LOCATION = "location";  
 
     /** 
-     * ������Ϣ���ͣ���Ƶ 
+     *语音事件
      */  
     public static final String REQ_MESSAGE_TYPE_VOICE = "voice";  
 
     /** 
-     * ������Ϣ���ͣ����� 
+     * 事件
      */  
     public static final String REQ_MESSAGE_TYPE_EVENT = "event";  
 
     /** 
-     * �¼����ͣ�subscribe(����) 
+     * 关注事件
      */  
     public static final String EVENT_TYPE_SUBSCRIBE = "subscribe";  
 
     /** 
-     * �¼����ͣ�unsubscribe(ȡ������) 
+     * 取关事件
      */  
     public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";  
 
     /**
-     * ɨ���������ά���¼�
+     * 
      */
     public static final String EVENT_TYPE_SCAN="SCAN";
     /**
-     * �ϱ�����λ���¼�
+     * 
      */
     public static final String EVENT_TYPE_LOCATION="LOCATION";
     /** 
-     * �¼����ͣ�CLICK(�Զ���˵�����¼�) 
+     * 
      */  
     public static final String EVENT_TYPE_VIEW="CLICK";
     /**
-     * ����˵���ת����ʱ���¼�����
+     * 
      */
     public static final String EVENT_TYPE_CLICK="VIEW";
     
     /**
-     * 
+     * 解析流中的xml参数，转为map集合
      * @param request
      * @return
      * @throws Exception
      */
     public static Map<String, String> parseXml(HttpServletRequest request) throws Exception {  
-        // ����������洢�� HashMap ��   
+        
         Map<String, String> map = new HashMap<String, String>();  
 
-        // �� request ��ȡ��������   
+        // request流 
         InputStream inputStream = request.getInputStream();  
-        // ��ȡ������   
+        //解析xml
         SAXReader reader = new SAXReader();  
         Document document = reader.read(inputStream);  
-        // �õ� xml ��Ԫ��   
+       
         Element root = document.getRootElement();  
-        // �õ���Ԫ�ص������ӽڵ�   
+       
         List<Element> elementList = root.elements();  
 
-        // ���������ӽڵ�   
+        // 
         for (Element e : elementList)  
             map.put(e.getName(), e.getText());  
 
-        // �ͷ���Դ   
+        // 释放资源
         inputStream.close();  
         inputStream = null;  
 
@@ -150,21 +148,21 @@ public class MessageUtil {
     }
     
     public static Map<String, String> parseXml(InputStream inputStream) throws Exception {  
-        // ����������洢�� HashMap ��   
+          
         Map<String, String> map = new HashMap<String, String>();  
-        // ��ȡ������   
+      
         SAXReader reader = new SAXReader();  
         Document document = reader.read(inputStream);  
-        // �õ� xml ��Ԫ��   
+        
         Element root = document.getRootElement();  
-        // �õ���Ԫ�ص������ӽڵ�   
+       
         List<Element> elementList = root.elements();  
 
-        // ���������ӽڵ�   
+       
         for (Element e : elementList)  
             map.put(e.getName(), e.getText());  
 
-        // �ͷ���Դ   
+        
         inputStream.close();  
         inputStream = null;  
 

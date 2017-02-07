@@ -5,10 +5,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class Signature {
-	// Óë½Ó¿ÚÅäÖÃĞÅÏ¢ÖĞµÄ Token ÒªÒ»ÖÂ   
+	//å¾®ä¿¡tokenå€¼
     private static String token = "weixin";  
     /** 
-     * ÑéÖ¤Ç©Ãû 
+     * éªŒè¯ç­¾å
      * @param signature 
      * @param timestamp 
      * @param nonce 
@@ -16,7 +16,7 @@ public class Signature {
      */  
     public static boolean checkSignature(String signature, String timestamp, String nonce) {  
         String[] arr = new String[] {token , timestamp, nonce };  
-        // ½« token¡¢timestamp¡¢nonce Èı¸ö²ÎÊı½øĞĞ×ÖµäĞòÅÅĞò   
+        // ï¿½ï¿½ tokenï¿½ï¿½timestampï¿½ï¿½nonce ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   
         Arrays.sort(arr);  
         StringBuilder content = new StringBuilder();  
         for (int i = 0; i < arr.length; i++) {  
@@ -27,7 +27,7 @@ public class Signature {
 
         try {  
             md = MessageDigest.getInstance("SHA-1");  
-            // ½«Èı¸ö²ÎÊı×Ö·û´®Æ´½Ó³ÉÒ»¸ö×Ö·û´®½øĞĞ sha1 ¼ÓÃÜ   
+            // sha1 
             byte[] digest = md.digest(content.toString().getBytes());  
             tmpStr = byteToStr(digest);  
         } catch (NoSuchAlgorithmException e) {  
@@ -35,12 +35,12 @@ public class Signature {
         }  
 
         content = null;  
-        // ½« sha1 ¼ÓÃÜºóµÄ×Ö·û´®¿ÉÓë signature ¶Ô±È£¬±êÊ¶¸ÃÇëÇóÀ´Ô´ÓÚÎ¢ĞÅ   
+        // sha1  signature
         return tmpStr != null ? tmpStr.equals(signature.toUpperCase()) : false;  
     }  
 
     /** 
-     * ½«×Ö½ÚÊı×é×ª»»ÎªÊ®Áù½øÖÆ×Ö·û´® 
+     *
      * @param byteArray 
      * @return 
      */  
@@ -53,7 +53,7 @@ public class Signature {
     }  
 
     /** 
-     * ½«×Ö½Ú×ª»»ÎªÊ®Áù½øÖÆ×Ö·û´® 
+     * 
      * @param mByte 
      * @return 
      */  

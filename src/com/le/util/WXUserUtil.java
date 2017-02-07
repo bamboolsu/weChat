@@ -15,7 +15,7 @@ import net.sf.json.JSONObject;
 public class WXUserUtil {
 	private static final String lang="zh_CN";
 	/**
-	 * Í¨¹ıopenId²éÑ¯ÓÃ»§µÄÏêÏ¸ĞÅÏ¢
+	 *è·å–å…³æ³¨å…¬ä¼—å·ç”¨æˆ·ä¿¡æ¯
 	 * @param openId
 	 * @param accessToken
 	 * @return
@@ -39,7 +39,7 @@ public class WXUserUtil {
     }
     
     /**
-     * ÓÀ¾Ã¶şÎ¬ÂëÉú³É
+     * è·å–å›¾ç‰‡
      * @param eventKey
      * @return
      */
@@ -73,9 +73,9 @@ public class WXUserUtil {
     }
     
     /**
-     * ½â¾ö¿çÓòÎÊÌâ
+     * è§£å†³è·¨åŸŸé—®é¢˜
      * @param callback  
-     * @param jsonObj  jsonÊı¾İ
+     * @param jsonObj 
      * @return
      */
     public static String crossDomain(String callback,JSONObject jsonObj){

@@ -1,14 +1,12 @@
 package com.le.controller;
 
 
-import java.io.IOException;
+
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,8 +23,8 @@ import com.le.util.MessageUtil;
 import com.le.wechat.entity.TextMessage;
 
 /**
- * �¼��ַ�����
- * @author admin
+ * 
+ * @author ouyangwenting
  *
  */
 @Repository

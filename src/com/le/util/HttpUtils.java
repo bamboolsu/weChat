@@ -54,13 +54,13 @@ public class HttpUtils {
 	        
 	}
 	/**
-     * @Description: http get �����÷���
+     * @Description: http get 
      * @param @param reqUrl
      * @param @param params
      * @param @return
      * @param @throws Exception
      * @author dapengniao
-     * @date 2016 �� 3 �� 10 �� ���� 3:57:39
+     * 
      */
     @SuppressWarnings("resource")
     public static String sendGet(String reqUrl, Map<String, String> params)
@@ -84,13 +84,13 @@ public class HttpUtils {
     }
     
     /**
-     * @Description: http post �����÷���
+     * 
      * @param @param reqUrl
      * @param @param params
      * @param @return
      * @param @throws Exception
      * @author dapengniao
-     * @date 2016 �� 3 �� 10 �� ���� 3:57:53
+     * 
      */
     @SuppressWarnings("resource")
     public static String sendPost(String reqUrl, Map<String, String> params)
@@ -121,27 +121,28 @@ public class HttpUtils {
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    throw new Exception("��������ʧ��,���������������");
+                   
                 }
             } else {
-                throw new Exception("������ȫ�����Ժ�����");
+                throw new Exception("");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            throw new Exception("����δ֪�쳣");
+            
         }
+		return reqUrl;
     }
      
     
     /**
-     * @Description: http post ���� json ����
+     * @Description: http post 读取json数据
      * @param @param urls
      * @param @param params
      * @param @return
      * @param @throws ClientProtocolException
      * @param @throws IOException
      * @author dapengniao
-     * @date 2016 �� 3 �� 10 �� ���� 3:58:15
+     * 
      */
     public static String sendPostBuffer(String urls, String params)
             throws ClientProtocolException, IOException {
@@ -149,10 +150,10 @@ public class HttpUtils {
 
         StringEntity se = new StringEntity(params, HTTP.UTF_8);
         request.setEntity(se);
-        // ��������
+       
         @SuppressWarnings("resource")
         HttpResponse httpResponse = new DefaultHttpClient().execute(request);
-        // �õ�Ӧ����ַ�������Ҳ��һ�� JSON ��ʽ���������
+        
         String retSrc = EntityUtils.toString(httpResponse.getEntity());
         request.releaseConnection();
         return retSrc;
@@ -160,15 +161,15 @@ public class HttpUtils {
     }
     
     /**
-     * @Description: http ������ xml ����
+     * @Description: http  xml 
      * @param @param urlStr
      * @param @param xmlInfo
      * @param @return
      * @author dapengniao
-     * @date 2016 �� 3 �� 10 �� ���� 3:58:32
+     
      */
     public static String sendXmlPost(String urlStr, String xmlInfo) {
-        // xmlInfo xml �����ַ���
+        // xmlInfo xml
 
         try {
             URL url = new URL(urlStr);
@@ -189,7 +190,7 @@ public class HttpUtils {
                     .readLine()) {
                 lines = lines + line;
             }
-            return lines; // ����������
+            return lines; 
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -204,19 +205,19 @@ public class HttpUtils {
         try {
             BufferedInputStream bis = new BufferedInputStream(is);
             bis.mark(2);
-            // ȡǰ�����ֽ�
+           
             byte[] header = new byte[2];
             int result = bis.read(header);
-            // reset ����������ʼλ��
+           
             bis.reset();
-            // �ж��Ƿ��� GZIP ��ʽ
+            
             int headerData = getShort(header);
-            // Gzip �� ��ǰ�����ֽ��� 0x1f8b
+           
             if (result != -1 && headerData == 0x1f8b) {
-                // LogUtil.i("HttpTask", " use GZIPInputStream  ");
+              
                 is = new GZIPInputStream(bis);
             } else {
-                // LogUtil.d("HttpTask", " not use GZIPInputStream");
+               
                 is = bis;
             }
             InputStreamReader reader = new InputStreamReader(is, "utf-8");
@@ -241,13 +242,13 @@ public class HttpUtils {
     }
 
     /**
-     * ���� get ��ʽ�� url
+     * 
      * 
      * @param reqUrl
-     *            ������ url ��ַ
+     *           ַ
      * @param params
-     *            ��ѯ����
-     * @return �����õ� url
+     *           
+     * @retur
      */
     public static String buildUrl(String reqUrl, Map<String, String> params) {
         StringBuilder query = new StringBuilder();

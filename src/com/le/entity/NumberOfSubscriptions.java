@@ -11,11 +11,11 @@ public class NumberOfSubscriptions {
 
 private String openID;
    
-   private String MsgType;//��Ϣ����
+   private String MsgType;
    
-   private String Event;//�¼�����
+   private String Event;
    
-   private Integer EventKey;//�¼�KEYֵ��qrscene_Ϊǰ׺������Ϊ��ά��Ĳ���ֵ
+   private Integer EventKey;//�¼�KEYֵ��qrscene_Ϊǰ׺������Ϊ��ά��Ĳ�ֵ
    
    
   

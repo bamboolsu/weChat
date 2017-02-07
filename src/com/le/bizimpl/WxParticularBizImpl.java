@@ -3,7 +3,7 @@ package com.le.bizimpl;
 
 import java.util.List;
 
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -53,7 +53,7 @@ public class WxParticularBizImpl implements IWxParticularBiz{
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 *
 	 */
 	public List<WxParticular> init(int page, int pageCount) {
 		// TODO Auto-generated method stub
@@ -65,7 +65,7 @@ public class WxParticularBizImpl implements IWxParticularBiz{
 	
 	
 	/**
-	 * ¼ì²é¶ÔÏóÊı¾İµÄÍêÕûĞÔ£¬ºÏ·¨ĞÔ
+	 * æ£€æŸ¥WxParticularæ•°æ®å®Œæ•´æ€§
 	 */
 	public void check(WxParticular wp) {
 		// TODO Auto-generated method stub
@@ -73,11 +73,11 @@ public class WxParticularBizImpl implements IWxParticularBiz{
 	}
 
 	/**
-	 * »ñÈ¡×ÜÒ³Êı
+	 *æ€»äººæ•°
 	 */
 	public Long getSumPage(int pageCount) {
 		// TODO Auto-generated method stub
-		//×ÜÌõÄ¿Êı
+		//ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 		Long count = iwp.getCount();
 		if(count%pageCount==0){
 			return count/pageCount;
@@ -87,7 +87,7 @@ public class WxParticularBizImpl implements IWxParticularBiz{
 	}
 
 	/**
-	 * ¸ù¾İidÉ¾³ıWxParticular¶ÔÏó
+	 *æ ¹æ®id åˆ é™¤WxParticularç”¨æˆ·
 	 */
 	public boolean deleteWxParticularById(int id) {
 		// TODO Auto-generated method stub
@@ -96,16 +96,16 @@ public class WxParticularBizImpl implements IWxParticularBiz{
 	}
 
 	/**
-	 * ¸ù¾İidĞŞ¸Ä¶şÎ¬ÂëÍ¼Æ¬µØÖ·
+	 * äºŒç»´ç åœ°å€Ö·
 	 */
 	public boolean setImageUrl(String imageUrl, int id) {
 		// TODO Auto-generated method stub
 		int setImageUrl = this.iwp.setImageUrl(imageUrl, id);
-		return setImageUrl>0;//false--ĞŞ¸ÄÊ§°Ü  true---ĞŞ¸Ä³É¹¦
+		return setImageUrl>0;//false-OK true---
 	}
 
 	/**
-	 * ĞŞ¸ÄWxParticular¶ÔÏó
+	 * æ›´æ–°WxParticularä¿¡æ¯
 	 */
 	public boolean updateWxParticular(WxParticular wp) {
 		// TODO Auto-generated method stub
@@ -121,28 +121,14 @@ public class WxParticularBizImpl implements IWxParticularBiz{
 
 	public List<Object[]> getAll() {
 		// TODO Auto-generated method stub
-		List<Object[]> list = iwp.getAll();//ËùÓĞÍ³¼ÆÏà¹ØµÄĞÅÏ¢
+		List<Object[]> list = iwp.getAll();//ï¿½ï¿½ï¿½ï¿½Í³ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Ï¢
 		return list;
 	}
 
-	public void test() {
-		// TODO Auto-generated method stub
-		//iwp.test();
-		/*Integer eventKey=123;
-		Integer state=1;
-		//SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-		String someTime = DateUtil.SomeTime(-30);
-		//String date=sdf.format(new Date());
-		//System.out.println(date);
-		System.out.println(someTime);
-		Object values[]={eventKey,state,someTime};
-		String hql="select count(user.openId) from NumberOfSubscriptions nos , WxUser  user   where nos.eventKey=? and nos.state=? and user.subscribeTime>=?";
-		iwp.countByEventKey(hql, values);*/
-		iwp.test();
-	}
+	
 
 	/**
-	 * Í³¼ÆÄ³¶ÎÊ±¼ä¹Ø×¢ÈËÊı
+	 * æŸæ®µæ—¶é—´çš„æ€»å…³æ³¨äººæ•°
 	 */
 	public Long getCount(Integer eventKey, Integer date, Integer state) {
 		// TODO Auto-generated method stub
@@ -157,6 +143,11 @@ public class WxParticularBizImpl implements IWxParticularBiz{
 		// TODO Auto-generated method stub
 		List<LeType> leTypes = ild.getAll();
 		return leTypes;
+	}
+
+	public void test() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

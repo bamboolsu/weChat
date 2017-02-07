@@ -16,7 +16,7 @@ import com.le.wechat.entity.ImageMessage;
 import com.le.wechat.entity.TextMessage;
 
 /**
- * ��ͨ��Ϣ�ַ�
+ * 
  * @author admin
  *
  */
@@ -26,7 +26,7 @@ public class MsgDispatcher implements IMessageDispatcher{
 		String openid=map.get("FromUserName"); //用户openid
 		String mpid=map.get("ToUserName");   //公众号原始ID
       	
-        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // �ı���Ϣ
+        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { 
            // System.out.println("文字回复");
             Set<String> keySet = map.keySet();
             for (String string : keySet) {
